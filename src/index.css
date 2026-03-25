@@ -54,3 +54,24 @@
     @apply py-5 sm:py-6 lg:py-8;
   }
 }
+
+@layer utilities {
+  @keyframes trust-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-trust-marquee {
+    animation: trust-marquee 26s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-trust-marquee {
+      animation: none;
+    }
+  }
+}

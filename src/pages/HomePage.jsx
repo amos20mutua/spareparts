@@ -90,6 +90,9 @@ export default function HomePage() {
     return (homepageFirst.length ? homepageFirst : categories).slice(0, 4);
   }, [categories]);
 
+  const trustItems = useMemo(() => homepageSettings.trust_items.slice(0, 4), [homepageSettings.trust_items]);
+  const scrollingTrustItems = useMemo(() => [...trustItems, ...trustItems], [trustItems]);
+
   const buildCurrentRequestLink = () =>
     buildRequestQuery({
       make: vehicle.make,
@@ -215,21 +218,23 @@ export default function HomePage() {
       {homepageSettings.show_trust_strip ? (
         <section className="border-b border-ink-200 bg-white">
           <div className="container-shell py-2">
-            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
-              {homepageSettings.trust_items.slice(0, 4).map((item, index) => {
-                const Icon = trustIcons[index % trustIcons.length];
-                return (
-                  <div
-                    key={item}
-                    className="flex min-w-[13.5rem] items-center gap-2 rounded-xl border border-ink-200 bg-ink-50 px-3 py-2 sm:min-w-0"
-                  >
-                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
-                      <Icon className="h-3.5 w-3.5" />
-                    </span>
-                    <span className="text-[12px] font-semibold leading-4 text-ink-800 sm:text-sm sm:leading-5">{item}</span>
-                  </div>
-                );
-              })}
+            <div className="overflow-hidden">
+              <div className="flex w-max min-w-full gap-2 animate-trust-marquee hover:[animation-play-state:paused]">
+                {scrollingTrustItems.map((item, index) => {
+                  const Icon = trustIcons[index % trustIcons.length];
+                  return (
+                    <div
+                      key={`${item}-${index}`}
+                      className="flex min-w-[13.5rem] items-center gap-2 rounded-xl border border-ink-200 bg-ink-50 px-3 py-2 sm:min-w-[15rem]"
+                    >
+                      <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
+                        <Icon className="h-3.5 w-3.5" />
+                      </span>
+                      <span className="text-[12px] font-semibold leading-4 text-ink-800 sm:text-sm sm:leading-5">{item}</span>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>
