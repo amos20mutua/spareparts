@@ -17,7 +17,7 @@ export default function VehicleSelector({
   return (
     <div className={className}>
       <div className="mb-2 flex items-center justify-between gap-3">
-        <p className="text-xs font-medium text-ink-500">Choose from the catalog or type the vehicle manually.</p>
+        <p className="text-xs font-medium text-ink-500">Choose the vehicle or switch to manual entry if it is not listed.</p>
         <button type="button" className="text-xs font-semibold text-brand-700 hover:text-brand-800" onClick={() => setManualMode((current) => !current)}>
           {manualMode ? 'Use dropdowns' : 'Enter manually'}
         </button>

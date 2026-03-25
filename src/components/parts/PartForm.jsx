@@ -113,6 +113,15 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
             : 'Use this if you have created the public `part-images` bucket in Supabase.'}
         </p>
         {values.image_url ? <p className="mt-2 break-all text-xs text-brand-700">{values.image_url}</p> : null}
+        {values.image_url ? (
+          <button
+            type="button"
+            className="mt-3 inline-flex rounded-xl border border-stone-300 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-rose-200 hover:text-rose-700"
+            onClick={() => setValues((current) => ({ ...current, image_url: '' }))}
+          >
+            Remove image
+          </button>
+        ) : null}
       </div>
       <div className="mt-5">
         <label className="label-base">Description</label>

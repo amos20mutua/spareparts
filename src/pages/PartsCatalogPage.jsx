@@ -6,6 +6,8 @@ import SearchFilterBar from '@/components/parts/SearchFilterBar';
 import PartCard from '@/components/parts/PartCard';
 import EmptyState from '@/components/ui/EmptyState';
 import Button from '@/components/ui/Button';
+import LoadingState from '@/components/ui/LoadingState';
+import PageMeta from '@/components/ui/PageMeta';
 import { getCategories } from '@/services/categoriesService';
 import { getParts } from '@/services/partsService';
 import { buildRequestQuery, matchesKeywordSearch, scoreKeywordMatch, shuffleBySeed } from '@/lib/utils';
@@ -24,7 +26,7 @@ function createMixSeed() {
 export default function PartsCatalogPage() {
   const [searchParams] = useSearchParams();
   const [categories, setCategories] = useState([]);
-  const [parts, setParts] = useState([]);
+  const [parts, setParts] = useState(null);
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [category, setCategory] = useState(searchParams.get('category') || '');
   const [vehicleMake, setVehicleMake] = useState(searchParams.get('make') || '');
@@ -44,6 +46,8 @@ export default function PartsCatalogPage() {
   }, [search, category, vehicleMake, vehicleModel, vehicleYear, availability, mixSeed]);
 
   const filteredParts = useMemo(() => {
+    if (!parts) return [];
+
     const matched = parts.filter((part) => {
       const matchesSearch = search ? matchesKeywordSearch(part, search) : true;
       const matchesCategory = category ? String(part.category_id) === String(category) : true;
@@ -69,10 +73,15 @@ export default function PartsCatalogPage() {
 
   return (
     <div className="container-shell py-10 sm:py-12">
+      <PageMeta
+        title="Browse parts"
+        description="Search spare parts by keyword, category, stock status, or vehicle details."
+      />
+
       <div className="grid gap-6 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
         <SectionHeading
-          eyebrow="Parts Catalog"
-          title="Search by part, vehicle, or keywords"
+          eyebrow="Parts catalog"
+          title="Search by part, make, or stock status"
           description="Use direct keywords, vehicle details, or filters to narrow the right match faster."
         />
         <div className="card-surface rounded-[1.7rem] p-4 sm:p-5">
@@ -138,7 +147,11 @@ export default function PartsCatalogPage() {
           {filteredParts.length} {filteredParts.length === 1 ? 'part' : 'parts'} found
         </p>
         <div className="flex flex-wrap gap-2">
-          <button type="button" className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700" onClick={() => setMixSeed(createMixSeed())}>
+          <button
+            type="button"
+            className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
+            onClick={() => setMixSeed(createMixSeed())}
+          >
             <RefreshCw className="h-4 w-4" />
             Change arrangement
           </button>
@@ -156,7 +169,9 @@ export default function PartsCatalogPage() {
       </div>
 
       <div className="mt-6">
-        {filteredParts.length ? (
+        {parts === null ? (
+          <LoadingState label="Loading catalog..." />
+        ) : filteredParts.length ? (
           <>
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
               {visibleParts.map((part) => (
@@ -173,8 +188,8 @@ export default function PartsCatalogPage() {
           </>
         ) : (
           <EmptyState
-            title="No parts matched those filters"
-            description="Try another keyword, change the mix, or request the exact part so Simon can help source it."
+            title="No matching parts yet"
+            description="Try a different keyword, clear a filter, or send the vehicle details so Simon can help source the right part."
             action={
               <Link
                 to={buildRequestQuery({

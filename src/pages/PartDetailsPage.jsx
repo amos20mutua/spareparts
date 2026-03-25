@@ -4,7 +4,9 @@ import { MessageCircleMore } from 'lucide-react';
 import SectionHeading from '@/components/ui/SectionHeading';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
+import EmptyState from '@/components/ui/EmptyState';
 import LoadingState from '@/components/ui/LoadingState';
+import PageMeta from '@/components/ui/PageMeta';
 import PartCard from '@/components/parts/PartCard';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import { useSiteContent } from '@/hooks/useSiteContent';
@@ -13,13 +15,14 @@ import { buildWhatsAppLink, formatCurrency, shuffleBySeed } from '@/lib/utils';
 
 export default function PartDetailsPage() {
   const { slug } = useParams();
-  const [part, setPart] = useState(null);
+  const [part, setPart] = useState(undefined);
   const [relatedParts, setRelatedParts] = useState([]);
   const { siteSettings } = useSiteContent();
 
   useEffect(() => {
+    setPart(undefined);
     getPartBySlug(slug).then((currentPart) => {
-      setPart(currentPart);
+      setPart(currentPart || null);
       if (currentPart) {
         getParts({ category: currentPart.category_id }).then((items) =>
           setRelatedParts(shuffleBySeed(items.filter((item) => item.slug !== currentPart.slug), `${currentPart.id}-related`).slice(0, 3)),
@@ -28,7 +31,7 @@ export default function PartDetailsPage() {
     });
   }, [slug]);
 
-  if (!part) {
+  if (part === undefined) {
     return (
       <div className="container-shell py-12">
         <LoadingState label="Loading part details..." />
@@ -36,8 +39,32 @@ export default function PartDetailsPage() {
     );
   }
 
+  if (part === null) {
+    return (
+      <div className="container-shell py-12">
+        <PageMeta title="Part not found" description="This part listing is no longer available. Browse the catalog or request help sourcing it." />
+        <EmptyState
+          title="That part is not available"
+          description="The listing may have been removed or renamed. Browse the catalog or send the vehicle details for help."
+          action={
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link to="/parts">
+                <Button>Browse parts</Button>
+              </Link>
+              <Link to="/request-part">
+                <Button variant="secondary">Request a part</Button>
+              </Link>
+            </div>
+          }
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="container-shell py-10 sm:py-12">
+      <PageMeta title={part.name} description={`${part.name} for ${part.vehicle_make} ${part.vehicle_model}. Check stock, pricing, and request fitment support.`} />
+
       <div className="grid gap-6 lg:grid-cols-[0.95fr,1.05fr]">
         <div className="card-surface overflow-hidden rounded-[1.8rem]">
           <div className="relative">
@@ -60,7 +87,7 @@ export default function PartDetailsPage() {
             <Badge>{part.stock_status}</Badge>
             <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold text-ink-700">{part.condition}</span>
           </div>
-          <p className="mt-5 text-[15px] leading-7 text-ink-700">{part.description}</p>
+          <p className="mt-5 text-[15px] leading-7 text-ink-700">{part.description || 'Use WhatsApp to confirm pricing, fitment, and stock for this part.'}</p>
           <div className="mt-5 grid gap-3 rounded-[1.5rem] bg-stone-100 p-4 sm:grid-cols-3">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-500">Compatibility</p>
@@ -71,9 +98,7 @@ export default function PartDetailsPage() {
             </div>
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-500">Price</p>
-              <p className="mt-2 text-xl font-extrabold text-ink-900">
-                {part.price_visible ? formatCurrency(part.price) : 'Request Price'}
-              </p>
+              <p className="mt-2 text-xl font-extrabold text-ink-900">{part.price_visible ? formatCurrency(part.price) : 'Request Price'}</p>
             </div>
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-500">Support</p>
@@ -94,7 +119,7 @@ export default function PartDetailsPage() {
             </a>
             <Link to="/request-part">
               <Button variant="secondary" size="lg">
-                Request Similar Part
+                Request similar part
               </Button>
             </Link>
           </div>
@@ -102,12 +127,18 @@ export default function PartDetailsPage() {
       </div>
 
       <section className="mt-12">
-        <SectionHeading eyebrow="Related Parts" title="Other parts in the same category" description="Useful alternatives and related repair items." />
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {relatedParts.map((item) => (
-            <PartCard key={item.id} part={item} />
-          ))}
-        </div>
+        <SectionHeading eyebrow="Related parts" title="Other parts in the same category" description="Useful alternatives and related repair items." />
+        {relatedParts.length ? (
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {relatedParts.map((item) => (
+              <PartCard key={item.id} part={item} />
+            ))}
+          </div>
+        ) : (
+          <div className="mt-6">
+            <EmptyState title="No related parts yet" description="More parts from this category will appear here as the catalog grows." />
+          </div>
+        )}
       </section>
     </div>
   );

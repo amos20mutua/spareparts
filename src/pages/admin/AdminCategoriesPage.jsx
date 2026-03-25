@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Pencil, Plus, Trash2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import EmptyState from '@/components/ui/EmptyState';
 import LoadingState from '@/components/ui/LoadingState';
 import { createCategory, deleteCategory, getCategories, updateCategory } from '@/services/categoriesService';
 import { uploadCategoryImage } from '@/services/storageService';
@@ -153,32 +154,36 @@ export default function AdminCategoriesPage() {
       </div>
 
       <AdminSectionCard title="Current categories" description="Keep the list tidy and order homepage visibility here.">
-        <div className="space-y-4">
-          {categories.map((category) => (
-            <div key={category.id} className="rounded-3xl border border-ink-100 bg-ink-50 p-4">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-lg font-bold text-ink-900">{category.name}</p>
-                    {category.show_on_homepage ? (
-                      <span className="rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-700">Homepage</span>
-                    ) : null}
+        {categories.length ? (
+          <div className="space-y-4">
+            {categories.map((category) => (
+              <div key={category.id} className="rounded-3xl border border-ink-100 bg-ink-50 p-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-lg font-bold text-ink-900">{category.name}</p>
+                      {category.show_on_homepage ? (
+                        <span className="rounded-full bg-brand-50 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-brand-700">Homepage</span>
+                      ) : null}
+                    </div>
+                    <p className="mt-1 text-sm text-ink-500">{category.slug}</p>
+                    <p className="mt-3 text-sm leading-7 text-ink-600">{category.description}</p>
                   </div>
-                  <p className="mt-1 text-sm text-ink-500">{category.slug}</p>
-                  <p className="mt-3 text-sm leading-7 text-ink-600">{category.description}</p>
-                </div>
-                <div className="flex gap-2">
-                  <Button variant="secondary" size="sm" onClick={() => setForm({ ...defaultForm, ...category })}>
-                    <Pencil className="h-4 w-4" />
-                  </Button>
-                  <Button variant="secondary" size="sm" onClick={() => handleDelete(category.id)}>
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button variant="secondary" size="sm" onClick={() => setForm({ ...defaultForm, ...category })}>
+                      <Pencil className="h-4 w-4" />
+                    </Button>
+                    <Button variant="secondary" size="sm" onClick={() => handleDelete(category.id)}>
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <EmptyState title="No categories yet" description="Create the first category to organize products and improve browsing." />
+        )}
       </AdminSectionCard>
     </div>
   );

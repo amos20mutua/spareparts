@@ -29,6 +29,15 @@ export default function AdminImageField({ label, value, onChange, onUpload, uplo
             }}
           />
           <p className="mt-2 text-xs text-ink-500">{uploading ? 'Uploading image...' : helperText}</p>
+          {value ? (
+            <button
+              type="button"
+              className="mt-3 inline-flex rounded-xl border border-stone-300 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-rose-200 hover:text-rose-700"
+              onClick={() => onChange('')}
+            >
+              Remove image
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

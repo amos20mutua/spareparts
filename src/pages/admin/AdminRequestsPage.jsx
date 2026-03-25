@@ -50,7 +50,7 @@ export default function AdminRequestsPage() {
                 <div>
                   <h3 className="text-lg font-bold text-ink-900">{request.part_needed}</h3>
                   <p className="mt-1 text-sm text-ink-600">
-                    {request.full_name} • {request.phone} • {request.email || 'No email'}
+                    {request.full_name} · {request.phone} · {request.email || 'No email'}
                   </p>
                 </div>
                 <select

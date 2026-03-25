@@ -73,7 +73,7 @@ export default function AdminSiteSettingsPage() {
               onChange={(value) => setForm((current) => ({ ...current, logo_url: value }))}
               uploading={uploadingLogo}
               onUpload={(file) => handleUpload(file, 'logos', setUploadingLogo)}
-              helperText="Best for the header and footer."
+              helperText="Best for the visible brand mark in the header. If left blank, the favicon image will be used there."
             />
             <AdminImageField
               label="Favicon"
@@ -81,7 +81,7 @@ export default function AdminSiteSettingsPage() {
               onChange={(value) => setForm((current) => ({ ...current, favicon_url: value }))}
               uploading={uploadingFavicon}
               onUpload={(file) => handleUpload(file, 'favicons', setUploadingFavicon)}
-              helperText="Use a square icon for tabs and phone shortcuts."
+              helperText="Used for browser tabs, phone shortcuts, and as the header mark fallback when no logo is set."
             />
           </div>
         </AdminSectionCard>

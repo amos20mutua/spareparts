@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Boxes, Home, Image, LayoutDashboard, ListChecks, LogOut, Mail, MessagesSquare, Settings, Shapes } from 'lucide-react';
+import { Boxes, FileText, Home, Image, LayoutDashboard, ListChecks, LogOut, Mail, MessagesSquare, Settings, Shapes } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import Button from '@/components/ui/Button';
 
@@ -12,7 +12,7 @@ const links = [
   { label: 'Requests', href: '/admin/requests', icon: ListChecks },
   { label: 'Chats', href: '/admin/chats', icon: MessagesSquare },
   { label: 'Messages', href: '/admin/messages', icon: Mail },
-  { label: 'Footer', href: '/admin/footer', icon: Mail },
+  { label: 'Footer', href: '/admin/footer', icon: FileText },
   { label: 'Media', href: '/admin/media', icon: Image },
 ];
 

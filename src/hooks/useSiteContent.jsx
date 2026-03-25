@@ -34,13 +34,12 @@ export function SiteContentProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    document.title = `${siteSettings.business_name} | ${siteSettings.tagline}`;
     if (siteSettings.favicon_url) {
       updateIconLink('link[rel="icon"]', siteSettings.favicon_url);
       updateIconLink('link[rel="shortcut icon"]', siteSettings.favicon_url);
       updateIconLink('link[rel="apple-touch-icon"]', siteSettings.favicon_url);
     }
-  }, [siteSettings.business_name, siteSettings.favicon_url, siteSettings.tagline]);
+  }, [siteSettings.favicon_url]);
 
   const value = useMemo(
     () => ({

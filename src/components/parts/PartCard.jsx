@@ -11,7 +11,7 @@ export default function PartCard({ part }) {
   const message = `Hello Simon, I would like to inquire about ${part.name} for ${part.vehicle_make} ${part.vehicle_model}.`;
 
   return (
-    <div className="card-surface flex h-full flex-col overflow-hidden rounded-[1.6rem]">
+    <article className="card-surface flex h-full flex-col overflow-hidden rounded-[1.6rem]">
       <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
         <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" />
         {part.image_url ? (
@@ -35,7 +35,7 @@ export default function PartCard({ part }) {
         </div>
         <p className="mt-2 text-sm leading-6 text-ink-600">
           {part.vehicle_make} {part.vehicle_model}
-          {part.vehicle_year ? ` • ${part.vehicle_year}` : ''}
+          {part.vehicle_year ? ` · ${part.vehicle_year}` : ''}
         </p>
         <p className="mt-4 text-xl font-extrabold tracking-tight text-ink-900">
           {part.price_visible ? formatCurrency(part.price) : 'Request Price'}
@@ -49,11 +49,11 @@ export default function PartCard({ part }) {
           </a>
           <Link to={`/parts/${part.slug}`}>
             <Button size="sm" className="w-full">
-              View Details
+              View details
             </Button>
           </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

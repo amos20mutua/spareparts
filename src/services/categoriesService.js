@@ -1,5 +1,4 @@
 import { requireSupabase } from '@/lib/supabase';
-import { sampleCategories } from '@/data/sampleData';
 import { slugify } from '@/lib/utils';
 
 export async function getCategories() {
@@ -14,7 +13,7 @@ export async function getCategories() {
       return String(first.name || '').localeCompare(String(second.name || ''));
     });
   } catch {
-    return sampleCategories;
+    return [];
   }
 }
 

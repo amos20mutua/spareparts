@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const fallbackImage =
-  'https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1200&q=80';
+  '/part-placeholder.svg';
 
 export default function ImageWithFallback({
   src,

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { LockKeyhole } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import PageMeta from '@/components/ui/PageMeta';
 import { useToast } from '@/hooks/useToast';
 import { useAuth } from '@/hooks/useAuth';
 import { getErrorMessage } from '@/lib/utils';
@@ -35,6 +36,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="container-shell py-16">
+      <PageMeta title="Admin login" description="Secure admin login for Simon Spare Parts content and catalog management." />
       <div className="mx-auto max-w-md card-surface rounded-[2rem] p-8">
         <div className="inline-flex rounded-2xl bg-brand-50 p-3 text-brand-700">
           <LockKeyhole className="h-5 w-5" />

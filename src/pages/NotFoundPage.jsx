@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import Button from '@/components/ui/Button';
+import PageMeta from '@/components/ui/PageMeta';
 
 export default function NotFoundPage() {
   return (
     <div className="container-shell py-16">
+      <PageMeta title="Page not found" description="This page is not available. Browse parts or return to the homepage." />
       <div className="card-surface mx-auto max-w-xl rounded-[2rem] p-8 text-center">
         <h1 className="text-3xl font-extrabold text-ink-900">Page not found</h1>
         <p className="mt-4 text-sm leading-7 text-ink-600">
