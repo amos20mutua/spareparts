@@ -67,30 +67,30 @@ export default function Navbar() {
 
       {open ? (
         <div className="border-t border-stone-200 bg-white lg:hidden">
-          <div className="container-shell flex flex-col gap-1 py-2.5">
+          <div className="container-shell flex flex-col gap-0.5 py-2">
             {navigationLinks.map((link) => (
               <NavLink
                 key={link.href}
                 to={link.href}
-                className={({ isActive }) => `${getNavLinkClass({ isActive })} rounded-xl px-3 py-2 text-sm`}
+                className={({ isActive }) => `${getNavLinkClass({ isActive })} rounded-xl px-2.5 py-1.5 text-[13px]`}
                 onClick={() => setOpen(false)}
               >
                 {link.label}
               </NavLink>
             ))}
-            <div className="mt-2 grid grid-cols-3 gap-2">
+            <div className="mt-1.5 grid grid-cols-3 gap-1.5 border-t border-stone-200 pt-2">
               <Link to="/parts" onClick={() => setOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full">
+                <Button variant="ghost" size="xs" className="w-full">
                   Search
                 </Button>
               </Link>
               <a href={getPhoneHref(siteSettings.contact_phone)}>
-                <Button variant="secondary" size="sm" className="w-full">
-                  Call Simon
+                <Button variant="secondary" size="xs" className="w-full">
+                  Call
                 </Button>
               </a>
               <Link to="/request-part" onClick={() => setOpen(false)}>
-                <Button size="sm" className="w-full">Request a Part</Button>
+                <Button size="xs" className="w-full">Request</Button>
               </Link>
             </div>
           </div>
