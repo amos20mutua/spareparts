@@ -57,11 +57,11 @@ export default function AdminPartEditorPage({ mode }) {
       .finally(() => setLoading(false));
   }, [id, mode]);
 
-  const handleSubmit = async (values) => {
+  const handleSubmit = async (values, selectedFile) => {
     if (uploadingImage) {
       showToast({
         title: 'Image still uploading',
-        description: 'Wait for the upload to finish before saving the product.',
+        description: 'Wait for the current upload to finish before saving the product.',
         tone: 'error',
       });
       return;
@@ -69,8 +69,16 @@ export default function AdminPartEditorPage({ mode }) {
 
     try {
       setSaving(true);
+      let imageUrl = values.image_url || '';
+
+      if (selectedFile) {
+        setUploadingImage(true);
+        imageUrl = await uploadPartImage(selectedFile);
+      }
+
       const payload = {
         ...values,
+        image_url: imageUrl,
         price: values.price === '' ? null : Number(values.price),
       };
 
@@ -82,7 +90,9 @@ export default function AdminPartEditorPage({ mode }) {
 
       showToast({
         title: mode === 'edit' ? 'Product updated' : 'Product created',
-        description: values.image_url ? 'The catalog has been updated successfully.' : 'The product was saved. Add an image if you want it to replace the placeholder on the public site.',
+        description: payload.image_url
+          ? 'The product and image were saved successfully.'
+          : 'The product was saved without an image.',
       });
       navigate('/admin/products');
     } catch (error) {
@@ -95,6 +105,7 @@ export default function AdminPartEditorPage({ mode }) {
         tone: 'error',
       });
     } finally {
+      setUploadingImage(false);
       setSaving(false);
     }
   };
@@ -114,27 +125,6 @@ export default function AdminPartEditorPage({ mode }) {
       });
     } finally {
       setSaving(false);
-    }
-  };
-
-  const handleImageUpload = async (file) => {
-    try {
-      setUploadingImage(true);
-      const url = await uploadPartImage(file);
-      showToast({
-        title: 'Image uploaded',
-        description: 'The uploaded image URL has been added to the form.',
-      });
-      return url;
-    } catch (error) {
-      showToast({
-        title: 'Image upload failed',
-        description: getErrorMessage(error),
-        tone: 'error',
-      });
-      return null;
-    } finally {
-      setUploadingImage(false);
     }
   };
 
@@ -161,7 +151,6 @@ export default function AdminPartEditorPage({ mode }) {
         categories={categories}
         onSubmit={handleSubmit}
         loading={saving}
-        onImageUpload={handleImageUpload}
         uploadingImage={uploadingImage}
       />
     </div>
