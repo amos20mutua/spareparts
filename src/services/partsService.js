@@ -19,6 +19,43 @@ function normalizePartPayload(values) {
   };
 }
 
+function buildSlugCandidates(values) {
+  const candidates = [
+    slugify(values.slug),
+    slugify([values.name, values.vehicle_make, values.vehicle_model, values.vehicle_year].filter(Boolean).join(' ')),
+    slugify([values.name, values.vehicle_make, values.vehicle_model].filter(Boolean).join(' ')),
+    slugify([values.name, values.vehicle_make].filter(Boolean).join(' ')),
+    slugify(values.name),
+  ].filter(Boolean);
+
+  return [...new Set(candidates)];
+}
+
+async function generateUniqueSlug(supabase, values, currentId = null) {
+  const candidates = buildSlugCandidates(values);
+
+  for (const candidate of candidates) {
+    let query = supabase.from('parts').select('id').eq('slug', candidate);
+    if (currentId) query = query.neq('id', currentId);
+    const { data, error } = await query.maybeSingle();
+    if (error && error.code !== 'PGRST116') throw error;
+    if (!data) return candidate;
+  }
+
+  const baseSlug = candidates[candidates.length - 1] || `part-${Date.now()}`;
+
+  for (let index = 2; index < 1000; index += 1) {
+    const nextSlug = `${baseSlug}-${index}`;
+    let query = supabase.from('parts').select('id').eq('slug', nextSlug);
+    if (currentId) query = query.neq('id', currentId);
+    const { data, error } = await query.maybeSingle();
+    if (error && error.code !== 'PGRST116') throw error;
+    if (!data) return nextSlug;
+  }
+
+  return `${baseSlug}-${Date.now()}`;
+}
+
 export async function getParts(filters = {}) {
   const shuffleSeed = filters.shuffleSeed || '';
   try {
@@ -71,7 +108,10 @@ export async function getPartById(id) {
 
 export async function createPart(values) {
   const supabase = requireSupabase();
-  const payload = { ...normalizePartPayload(values), slug: values.slug || slugify(values.name) };
+  const payload = {
+    ...normalizePartPayload(values),
+    slug: await generateUniqueSlug(supabase, values),
+  };
   const { data, error } = await supabase.from('parts').insert(payload).select().single();
   if (error) throw error;
   return data;
@@ -79,7 +119,11 @@ export async function createPart(values) {
 
 export async function updatePart(id, values) {
   const supabase = requireSupabase();
-  const payload = { ...normalizePartPayload(values), slug: values.slug || slugify(values.name), updated_at: new Date().toISOString() };
+  const payload = {
+    ...normalizePartPayload(values),
+    slug: await generateUniqueSlug(supabase, values, id),
+    updated_at: new Date().toISOString(),
+  };
   const { data, error } = await supabase.from('parts').update(payload).eq('id', id).select().single();
   if (error) throw error;
   return data;
