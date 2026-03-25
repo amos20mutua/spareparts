@@ -47,6 +47,15 @@ export default function ChatWidget({ open, onClose }) {
     [messages],
   );
 
+  const refreshConversation = async (conversationId, { markAsRead = false } = {}) => {
+    if (!conversationId) return;
+    const updatedMessages = await getConversationMessages(conversationId);
+    setMessages(updatedMessages);
+    if (markAsRead) {
+      await markMessagesAsRead(conversationId, 'customer');
+    }
+  };
+
   useEffect(() => {
     if (!open || !sessionId) return undefined;
     let cancelled = false;
@@ -71,11 +80,8 @@ export default function ChatWidget({ open, onClose }) {
           setMessages([]);
           return;
         }
-        const conversationMessages = await getConversationMessages(existingConversation.id);
-        if (cancelled) return;
         setConversation(existingConversation);
-        setMessages(conversationMessages);
-        await markMessagesAsRead(existingConversation.id, 'customer');
+        await refreshConversation(existingConversation.id, { markAsRead: true });
       } catch (error) {
         if (!cancelled) {
           setConversation(null);
@@ -99,15 +105,24 @@ export default function ChatWidget({ open, onClose }) {
     if (!conversation?.id) return undefined;
     return subscribeToConversationMessages(conversation.id, async () => {
       try {
-        const updatedMessages = await getConversationMessages(conversation.id);
-        setMessages(updatedMessages);
-        if (open) {
-          await markMessagesAsRead(conversation.id, 'customer');
-        }
+        await refreshConversation(conversation.id, { markAsRead: open });
       } catch (error) {
         setChatError(getChatErrorMessage(error));
       }
     });
+  }, [conversation?.id, open]);
+
+  useEffect(() => {
+    if (!open || !conversation?.id) return undefined;
+    const intervalId = window.setInterval(() => {
+      refreshConversation(conversation.id, { markAsRead: true }).catch((error) => {
+        setChatError(getChatErrorMessage(error));
+      });
+    }, 12000);
+
+    return () => {
+      window.clearInterval(intervalId);
+    };
   }, [conversation?.id, open]);
 
   useEffect(() => {
@@ -155,9 +170,8 @@ export default function ChatWidget({ open, onClose }) {
         conversation_id: createdConversation.id,
       });
 
-      const conversationMessages = await getConversationMessages(createdConversation.id);
       setConversation(createdConversation);
-      setMessages(conversationMessages);
+      await refreshConversation(createdConversation.id, { markAsRead: false });
       setIdentity((current) => ({ ...current, first_message: '' }));
     } catch (error) {
       setChatError(getChatErrorMessage(error));
@@ -186,11 +200,12 @@ export default function ChatWidget({ open, onClose }) {
         await updateConversation(conversation.id, nextProfile);
         setConversation((current) => (current ? { ...current, ...nextProfile } : current));
       }
-      await sendChatMessage({
+      const sentMessage = await sendChatMessage({
         conversationId: conversation.id,
         senderType: 'customer',
         message,
       });
+      setMessages((current) => [...current, sentMessage]);
     } catch (error) {
       setChatError(getChatErrorMessage(error));
       showToast({ title: 'Message failed', description: getChatErrorMessage(error), tone: 'error' });
@@ -202,10 +217,10 @@ export default function ChatWidget({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-[5.15rem] right-3 z-[70] w-[min(100vw-1.5rem,24rem)] overflow-hidden rounded-[1.5rem] border border-stone-300 bg-stone-50 shadow-[0_24px_50px_-24px_rgba(15,23,42,0.35)] md:bottom-24 md:right-4 md:w-[min(100vw-2rem,24rem)] md:rounded-[1.8rem]">
-      <div className="flex items-center justify-between bg-ink-900 px-4 py-3 text-white">
+    <div className="fixed inset-x-2 bottom-[4.85rem] z-[70] overflow-hidden rounded-[1.25rem] border border-stone-300 bg-stone-50 shadow-[0_24px_50px_-24px_rgba(15,23,42,0.35)] md:inset-x-auto md:bottom-24 md:right-4 md:w-[min(100vw-2rem,24rem)] md:rounded-[1.8rem]">
+      <div className="flex items-center justify-between bg-ink-900 px-3.5 py-2.5 text-white md:px-4 md:py-3">
         <div className="flex items-center gap-2.5">
-          <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-700">
+          <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-700 md:h-9 md:w-9">
             <MessageCircleMore className="h-4 w-4" />
           </span>
           <div>
@@ -224,7 +239,7 @@ export default function ChatWidget({ open, onClose }) {
       </div>
 
       {!minimized ? (
-        <div className="flex h-[30rem] flex-col">
+        <div className="flex max-h-[min(70dvh,32rem)] min-h-[24rem] flex-col md:h-[30rem]">
           {loading ? (
             <div className="flex flex-1 items-center justify-center text-sm text-ink-500">Loading chat...</div>
           ) : conversation ? (
@@ -236,10 +251,10 @@ export default function ChatWidget({ open, onClose }) {
               <ChatComposer onSend={handleSend} disabled={sending} />
             </>
           ) : (
-            <form onSubmit={handleStartConversation} className="flex flex-1 flex-col gap-4 p-4">
+            <form onSubmit={handleStartConversation} className="flex flex-1 flex-col gap-3 p-3.5 md:gap-4 md:p-4">
               <div>
-                <h3 className="text-lg font-bold text-ink-900">Start a conversation</h3>
-                <p className="mt-1 text-sm leading-6 text-ink-600">Share your details and the first message so Simon can reply in real time.</p>
+                <h3 className="text-base font-bold text-ink-900 md:text-lg">Start a conversation</h3>
+                <p className="mt-1 text-[13px] leading-5 text-ink-600 md:text-sm md:leading-6">Share your details and the first message so Simon can reply in real time.</p>
               </div>
               {chatError ? <div className="rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">{chatError}</div> : null}
               <input
@@ -261,12 +276,12 @@ export default function ChatWidget({ open, onClose }) {
                 onChange={(event) => setIdentity((current) => ({ ...current, customer_email: event.target.value }))}
               />
               <textarea
-                className="input-base min-h-32"
+                className="input-base min-h-24 md:min-h-32"
                 placeholder="How can Simon help?"
                 value={identity.first_message}
                 onChange={(event) => setIdentity((current) => ({ ...current, first_message: event.target.value }))}
               />
-              <Button type="submit" disabled={sending}>
+              <Button type="submit" size="sm" disabled={sending}>
                 {sending ? 'Starting...' : 'Start chat'}
               </Button>
             </form>

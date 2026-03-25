@@ -10,14 +10,19 @@ function formatTimestamp(value) {
 }
 
 export default function ChatMessageList({ messages, ownerView = false }) {
-  const bottomRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const container = containerRef.current;
+    if (!container) return;
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: 'smooth',
+    });
   }, [messages]);
 
   return (
-    <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
+    <div ref={containerRef} className="flex-1 space-y-2.5 overflow-y-auto px-3 py-3 sm:px-4 sm:py-4">
       {messages.map((message) => {
         const isOwner = message.sender_type === 'owner';
         const alignClass = isOwner ? 'items-end' : 'items-start';
@@ -29,14 +34,13 @@ export default function ChatMessageList({ messages, ownerView = false }) {
 
         return (
           <div key={message.id} className={`flex flex-col ${alignClass}`}>
-            <div className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-6 shadow-sm ${bubbleClass}`}>
+            <div className={`max-w-[88%] rounded-2xl px-3 py-2 text-[13px] leading-5 shadow-sm sm:max-w-[85%] sm:px-3.5 sm:py-2.5 sm:text-sm sm:leading-6 ${bubbleClass}`}>
               {message.message}
             </div>
             <span className="mt-1 px-1 text-[11px] text-ink-400">{formatTimestamp(message.created_at)}</span>
           </div>
         );
       })}
-      <div ref={bottomRef} />
     </div>
   );
 }

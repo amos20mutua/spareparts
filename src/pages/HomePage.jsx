@@ -226,45 +226,33 @@ export default function HomePage() {
         </section>
       ) : null}
 
-      <section className="section-shell bg-white">
-        <div className="container-shell">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading
-              eyebrow="What Simon supplies"
-              title="Quick categories and common repair parts"
-              description="Browse fast-moving categories or jump straight into the full catalog."
-            />
-            <div className="flex flex-wrap gap-2 sm:justify-end">
-              <a href={buildWhatsAppLink('Hello Simon, I need help finding the right vehicle part.', siteSettings.whatsapp_number)} target="_blank" rel="noreferrer">
-                <Button variant="secondary" size="sm">WhatsApp</Button>
-              </a>
-              <Link to="/parts">
-                <Button size="sm">Browse parts</Button>
-              </Link>
+      {categoriesForHome.length ? (
+        <section className="section-shell bg-white">
+          <div className="container-shell">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+              <SectionHeading
+                eyebrow="What Simon supplies"
+                title="Quick categories"
+                description="Use a category or jump straight into the catalog."
+              />
+              <div className="flex flex-wrap gap-2 sm:justify-end">
+                <a href={buildWhatsAppLink('Hello Simon, I need help finding the right vehicle part.', siteSettings.whatsapp_number)} target="_blank" rel="noreferrer">
+                  <Button variant="secondary" size="xs">WhatsApp</Button>
+                </a>
+                <Link to="/parts">
+                  <Button size="xs">Browse parts</Button>
+                </Link>
+              </div>
             </div>
-          </div>
 
-          {categoriesForHome.length ? (
             <div className="mt-4 grid grid-cols-2 gap-3 xl:grid-cols-4">
               {categoriesForHome.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
             </div>
-          ) : (
-            <div className="mt-4">
-              <EmptyState
-                title="Categories will appear here"
-                description="Add categories from the admin dashboard to organize the public catalog."
-                action={
-                  <Link to="/parts">
-                    <Button variant="secondary">Browse current parts</Button>
-                  </Link>
-                }
-              />
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      ) : null}
 
       {homepageSettings.show_featured_products ? (
         <section className="section-shell bg-stone-50">

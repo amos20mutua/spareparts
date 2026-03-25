@@ -13,16 +13,16 @@ export default function ChatComposer({ onSend, disabled, placeholder = 'Write a 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-stone-200 bg-white p-3">
+    <form onSubmit={handleSubmit} className="border-t border-stone-200 bg-white p-2.5 sm:p-3">
       <div className="flex gap-2">
         <textarea
-          className="input-base min-h-[48px] resize-none py-2.5"
+          className="input-base min-h-[42px] resize-none py-2"
           placeholder={placeholder}
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           disabled={disabled}
         />
-        <Button type="submit" disabled={disabled}>
+        <Button type="submit" size="sm" disabled={disabled}>
           Send
         </Button>
       </div>

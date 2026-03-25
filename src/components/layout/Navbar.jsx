@@ -20,15 +20,15 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/92 backdrop-blur-xl">
-      <div className="container-shell flex h-13 items-center justify-between gap-3 sm:h-14">
+      <div className="container-shell flex h-12 items-center justify-between gap-3 sm:h-14">
         <Link to="/" className="flex min-w-0 items-center gap-2">
           {brandImage ? (
-            <img src={brandImage} alt={siteSettings.business_name} className="h-7 w-7 rounded-lg object-cover sm:h-8 sm:w-8" />
+            <img src={brandImage} alt={siteSettings.business_name} className="h-6.5 w-6.5 rounded-lg object-cover sm:h-8 sm:w-8" />
           ) : (
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-700 text-[10px] font-extrabold text-white sm:h-8 sm:w-8">{logoLabel}</div>
+            <div className="flex h-6.5 w-6.5 items-center justify-center rounded-lg bg-brand-700 text-[10px] font-extrabold text-white sm:h-8 sm:w-8">{logoLabel}</div>
           )}
           <div className="min-w-0">
-            <p className="truncate text-[12px] font-extrabold tracking-tight text-ink-900 sm:text-sm">{siteSettings.business_name}</p>
+            <p className="truncate text-[11px] font-extrabold tracking-tight text-ink-900 sm:text-sm">{siteSettings.business_name}</p>
           </div>
         </Link>
 
@@ -57,7 +57,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-stone-300 bg-white lg:hidden"
+          className="inline-flex h-7.5 w-7.5 items-center justify-center rounded-lg border border-stone-300 bg-white lg:hidden"
           onClick={() => setOpen((value) => !value)}
           aria-label="Toggle navigation"
         >
