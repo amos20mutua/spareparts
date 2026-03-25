@@ -4,28 +4,13 @@ import { useSiteContent } from '@/hooks/useSiteContent';
 
 export default function Footer() {
   const { siteSettings, footerSettings } = useSiteContent();
-  const logoLabel = siteSettings.business_name
-    .split(' ')
-    .map((word) => word[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
 
   return (
     <footer className="border-t border-stone-200 bg-white">
       <div className="container-shell grid gap-7 py-8 lg:grid-cols-[1.2fr,0.75fr,0.9fr]">
         <div>
-          <div className="flex items-center gap-3">
-            {siteSettings.logo_url ? (
-              <img src={siteSettings.logo_url} alt={siteSettings.business_name} className="h-11 w-11 rounded-2xl object-cover" />
-            ) : (
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-700 font-extrabold text-white">{logoLabel}</div>
-            )}
-            <div>
-              <p className="font-extrabold text-ink-900">{siteSettings.business_name}</p>
-              <p className="text-sm text-ink-500">{siteSettings.tagline}</p>
-            </div>
-          </div>
+          <p className="font-extrabold text-ink-900">{siteSettings.business_name}</p>
+          <p className="mt-1 text-sm text-ink-500">{siteSettings.tagline}</p>
           <p className="mt-4 max-w-sm text-sm leading-6 text-ink-600">{footerSettings.description}</p>
         </div>
 

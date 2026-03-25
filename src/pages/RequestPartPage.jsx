@@ -8,6 +8,14 @@ import { buildWhatsAppLink, getErrorMessage } from '@/lib/utils';
 import { useSiteContent } from '@/hooks/useSiteContent';
 import { useToast } from '@/hooks/useToast';
 
+function getRequestErrorMessage(error) {
+  const message = getErrorMessage(error);
+  if (message.toLowerCase().includes('row-level security')) {
+    return 'Part requests need the Supabase insert policies from schema.sql. For now, use WhatsApp while the policies are applied.';
+  }
+  return message;
+}
+
 export default function RequestPartPage() {
   const [loading, setLoading] = useState(false);
   const { showToast } = useToast();
@@ -35,7 +43,7 @@ export default function RequestPartPage() {
     } catch (error) {
       showToast({
         title: 'Could not submit request',
-        description: getErrorMessage(error),
+        description: getRequestErrorMessage(error),
         tone: 'error',
       });
       throw error;

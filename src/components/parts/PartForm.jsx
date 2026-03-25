@@ -83,6 +83,10 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
           <input type="checkbox" name="featured" checked={Boolean(values.featured)} onChange={handleChange} />
           <span className="text-sm font-semibold text-ink-700">Feature on homepage</span>
         </label>
+        <label className="inline-flex items-center gap-3 rounded-2xl border border-ink-200 bg-ink-50 px-4 py-3 md:col-span-2">
+          <input type="checkbox" name="is_active" checked={values.is_active !== false} onChange={handleChange} />
+          <span className="text-sm font-semibold text-ink-700">Show this product on the website</span>
+        </label>
       </div>
       <div className="mt-5">
         <label className="label-base">Image URL</label>

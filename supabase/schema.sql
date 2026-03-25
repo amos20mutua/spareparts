@@ -25,6 +25,7 @@ create table if not exists public.parts (
   price_visible boolean not null default true,
   stock_status text not null default 'In Stock' check (stock_status in ('In Stock', 'Low Stock', 'Out of Stock')),
   featured boolean not null default false,
+  is_active boolean not null default true,
   image_url text,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()

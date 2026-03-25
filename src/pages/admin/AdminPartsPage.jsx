@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Pencil, Plus, Trash2 } from 'lucide-react';
+import { EyeOff, Pencil, Plus, ToggleLeft, ToggleRight, Trash2 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import LoadingState from '@/components/ui/LoadingState';
 import EmptyState from '@/components/ui/EmptyState';
-import { deletePart, getParts } from '@/services/partsService';
+import { deletePart, getParts, updatePart } from '@/services/partsService';
 import { useToast } from '@/hooks/useToast';
 import { getErrorMessage } from '@/lib/utils';
 
@@ -14,7 +14,7 @@ export default function AdminPartsPage() {
   const { showToast } = useToast();
 
   const loadParts = async () => {
-    const data = await getParts();
+    const data = await getParts({ includeInactive: true });
     setParts(data);
   };
 
@@ -29,6 +29,19 @@ export default function AdminPartsPage() {
       showToast({ title: 'Part deleted', description: 'The part has been removed from the catalog.' });
     } catch (error) {
       showToast({ title: 'Delete failed', description: getErrorMessage(error), tone: 'error' });
+    }
+  };
+
+  const handleVisibilityToggle = async (part) => {
+    try {
+      await updatePart(part.id, { ...part, is_active: part.is_active === false });
+      await loadParts();
+      showToast({
+        title: part.is_active === false ? 'Product enabled' : 'Product hidden',
+        description: part.is_active === false ? 'The product is visible on the site again.' : 'The product has been hidden from the public site.',
+      });
+    } catch (error) {
+      showToast({ title: 'Visibility update failed', description: getErrorMessage(error), tone: 'error' });
     }
   };
 
@@ -59,6 +72,7 @@ export default function AdminPartsPage() {
                 <tr className="text-ink-500">
                   <th className="px-4 py-4 font-semibold">Part</th>
                   <th className="px-4 py-4 font-semibold">Vehicle</th>
+                  <th className="px-4 py-4 font-semibold">Visibility</th>
                   <th className="px-4 py-4 font-semibold">Stock</th>
                   <th className="px-4 py-4 font-semibold">Price</th>
                   <th className="px-4 py-4 font-semibold">Actions</th>
@@ -75,6 +89,19 @@ export default function AdminPartsPage() {
                       {part.vehicle_make} {part.vehicle_model}
                     </td>
                     <td className="px-4 py-4">
+                      {part.is_active === false ? (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-200 px-3 py-1 text-xs font-semibold text-ink-700">
+                          <EyeOff className="h-3.5 w-3.5" />
+                          Hidden
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                          <ToggleRight className="h-3.5 w-3.5" />
+                          Active
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-4 py-4">
                       <Badge>{part.stock_status}</Badge>
                     </td>
                     <td className="px-4 py-4 text-ink-700">{part.price_visible ? `KES ${part.price}` : 'Hidden'}</td>
@@ -85,6 +112,9 @@ export default function AdminPartsPage() {
                             <Pencil className="h-4 w-4" />
                           </Button>
                         </Link>
+                        <Button variant="secondary" size="sm" onClick={() => handleVisibilityToggle(part)}>
+                          {part.is_active === false ? <ToggleRight className="h-4 w-4" /> : <ToggleLeft className="h-4 w-4" />}
+                        </Button>
                         <Button variant="secondary" size="sm" onClick={() => handleDelete(part.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>

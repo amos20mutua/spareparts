@@ -1,7 +1,7 @@
 {
   "name": "Simon Spare Parts",
-  "short_name": "Simon Parts",
-  "description": "Vehicle spare parts with fitment help, sourcing support, and fast WhatsApp replies.",
+  "short_name": "Spare Parts",
+  "description": "Vehicle spare parts with fitment help, stock checks, and fast WhatsApp replies.",
   "theme_color": "#104da4",
   "background_color": "#104da4",
   "display": "standalone",

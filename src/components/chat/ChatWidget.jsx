@@ -17,6 +17,14 @@ import { getErrorMessage } from '@/lib/utils';
 import ChatMessageList from './ChatMessageList';
 import ChatComposer from './ChatComposer';
 
+function getChatErrorMessage(error) {
+  const message = getErrorMessage(error);
+  if (message.toLowerCase().includes('row-level security')) {
+    return 'Chat needs the Supabase chat policies from schema.sql. Use WhatsApp for now, then re-run the chat SQL setup.';
+  }
+  return message;
+}
+
 export default function ChatWidget({ open, onClose }) {
   const [minimized, setMinimized] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -61,7 +69,7 @@ export default function ChatWidget({ open, onClose }) {
         setMessages(conversationMessages);
         await markMessagesAsRead(existingConversation.id, 'customer');
       } catch (error) {
-        showToast({ title: 'Chat unavailable', description: getErrorMessage(error), tone: 'error' });
+        showToast({ title: 'Chat unavailable', description: getChatErrorMessage(error), tone: 'error' });
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -128,7 +136,7 @@ export default function ChatWidget({ open, onClose }) {
       setMessages(conversationMessages);
       setIdentity((current) => ({ ...current, first_message: '' }));
     } catch (error) {
-      showToast({ title: 'Could not start chat', description: getErrorMessage(error), tone: 'error' });
+      showToast({ title: 'Could not start chat', description: getChatErrorMessage(error), tone: 'error' });
     } finally {
       setSending(false);
     }
@@ -149,7 +157,7 @@ export default function ChatWidget({ open, onClose }) {
         message,
       });
     } catch (error) {
-      showToast({ title: 'Message failed', description: getErrorMessage(error), tone: 'error' });
+      showToast({ title: 'Message failed', description: getChatErrorMessage(error), tone: 'error' });
     } finally {
       setSending(false);
     }

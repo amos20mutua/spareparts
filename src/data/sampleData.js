@@ -24,6 +24,7 @@ export const sampleParts = [
     price_visible: true,
     stock_status: 'In Stock',
     featured: true,
+    is_active: true,
     image_url: 'https://images.unsplash.com/photo-1613214150384-b9dcb115d1f8?auto=format&fit=crop&w=1200&q=80',
   },
   {
@@ -41,6 +42,7 @@ export const sampleParts = [
     price_visible: false,
     stock_status: 'Low Stock',
     featured: true,
+    is_active: true,
     image_url: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80',
   },
   {
@@ -58,6 +60,7 @@ export const sampleParts = [
     price_visible: true,
     stock_status: 'In Stock',
     featured: true,
+    is_active: true,
     image_url: 'https://images.unsplash.com/photo-1632823469850-2f77dd9c7f93?auto=format&fit=crop&w=1200&q=80',
   },
   {
@@ -75,6 +78,7 @@ export const sampleParts = [
     price_visible: true,
     stock_status: 'Low Stock',
     featured: true,
+    is_active: true,
     image_url: 'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80',
   },
   {
@@ -92,6 +96,7 @@ export const sampleParts = [
     price_visible: true,
     stock_status: 'In Stock',
     featured: true,
+    is_active: true,
     image_url: 'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?auto=format&fit=crop&w=1200&q=80',
   },
   {
@@ -109,6 +114,7 @@ export const sampleParts = [
     price_visible: true,
     stock_status: 'Out of Stock',
     featured: false,
+    is_active: true,
     image_url: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?auto=format&fit=crop&w=1200&q=80',
   },
 ];

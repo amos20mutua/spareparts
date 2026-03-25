@@ -10,6 +10,14 @@ function decoratePart(part) {
   return { ...part, category };
 }
 
+function normalizePartPayload(values) {
+  return {
+    ...values,
+    category_id: values.category_id ? values.category_id : null,
+    is_active: values.is_active ?? true,
+  };
+}
+
 export async function getParts(filters = {}) {
   const shuffleSeed = filters.shuffleSeed || '';
   try {
@@ -23,7 +31,7 @@ export async function getParts(filters = {}) {
     const { data, error } = await query;
     if (error) throw error;
 
-    let items = data;
+    let items = data.filter((part) => (filters.includeInactive ? true : part.is_active !== false));
     if (filters.search) {
       items = items.filter((part) => matchesKeywordSearch(part, filters.search));
     }
@@ -35,7 +43,8 @@ export async function getParts(filters = {}) {
       const matchesAvailability = filters.availability ? part.stock_status === filters.availability : true;
       const matchesFeatured = filters.featuredOnly ? part.featured : true;
       const matchesSearch = filters.search ? matchesKeywordSearch(part, filters.search) : true;
-      return matchesCategory && matchesMake && matchesAvailability && matchesFeatured && matchesSearch;
+      const matchesActive = filters.includeInactive ? true : part.is_active !== false;
+      return matchesCategory && matchesMake && matchesAvailability && matchesFeatured && matchesSearch && matchesActive;
     });
     return shuffleSeed ? shuffleBySeed(filtered, shuffleSeed) : filtered;
   }
@@ -61,7 +70,7 @@ export async function getPartById(id) {
 
 export async function createPart(values) {
   const supabase = requireSupabase();
-  const payload = { ...values, slug: values.slug || slugify(values.name) };
+  const payload = { ...normalizePartPayload(values), slug: values.slug || slugify(values.name) };
   const { data, error } = await supabase.from('parts').insert(payload).select().single();
   if (error) throw error;
   return data;
@@ -69,7 +78,7 @@ export async function createPart(values) {
 
 export async function updatePart(id, values) {
   const supabase = requireSupabase();
-  const payload = { ...values, slug: values.slug || slugify(values.name), updated_at: new Date().toISOString() };
+  const payload = { ...normalizePartPayload(values), slug: values.slug || slugify(values.name), updated_at: new Date().toISOString() };
   const { data, error } = await supabase.from('parts').update(payload).eq('id', id).select().single();
   if (error) throw error;
   return data;
