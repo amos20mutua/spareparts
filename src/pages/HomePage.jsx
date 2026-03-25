@@ -161,40 +161,40 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,77,164,0.24),transparent_34%)]" />
         </div>
 
-        <div className="container-shell relative py-7 sm:py-10 lg:py-12">
+        <div className="container-shell relative py-5 sm:py-10 lg:py-12">
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-200">Spare parts in Nairobi</p>
-            <h1 className="mt-2.5 max-w-xl text-[1.85rem] font-extrabold tracking-[-0.04em] text-white sm:text-[2.7rem] sm:leading-[0.98]">
+            <h1 className="mt-2 max-w-xl text-[1.65rem] font-extrabold tracking-[-0.04em] text-white sm:text-[2.7rem] sm:leading-[0.98]">
               {homepageSettings.hero_heading}
             </h1>
-            <p className="mt-2 max-w-lg text-[14px] leading-6 text-stone-100 sm:text-[15px]">{homepageSettings.hero_subheading}</p>
+            <p className="mt-1.5 max-w-lg text-[13px] leading-5 text-stone-100 sm:text-[15px] sm:leading-6">{homepageSettings.hero_subheading}</p>
 
-            <div className="mt-4 max-w-2xl rounded-[1.4rem] border border-white/70 bg-white/95 p-3 shadow-[0_26px_70px_-36px_rgba(15,23,42,0.8)] backdrop-blur sm:p-4">
+            <div className="mt-3 max-w-2xl rounded-[1.15rem] border border-white/70 bg-white/95 p-2.5 shadow-[0_26px_70px_-36px_rgba(15,23,42,0.8)] backdrop-blur sm:rounded-[1.4rem] sm:p-4">
               <label className="label-base text-ink-800">Search by part or vehicle</label>
               <div className="flex flex-col gap-2 sm:flex-row">
                 <div className="relative flex-1">
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
                   <input
-                    className="input-base h-11 border-stone-300 bg-stone-50 pl-10"
+                    className="input-base h-10 border-stone-300 bg-stone-50 pl-10 sm:h-11"
                     value={searchText}
                     onChange={(event) => setSearchText(event.target.value)}
                     placeholder={`e.g. ${heroHint}`}
                     aria-label="Search by part name or vehicle"
                   />
                 </div>
-                <Button className="h-11 px-4 sm:min-w-[120px]" onClick={handleSearchSubmit}>
+                <Button size="sm" className="h-10 px-4 sm:h-11 sm:min-w-[120px]" onClick={handleSearchSubmit}>
                   Search
                 </Button>
               </div>
               <VehicleSelector values={vehicle} onChange={handleVehicleChange} onSubmit={handleVehicleSubmit} submitLabel="Find parts" className="mt-2.5" />
-              <div className="mt-3 flex flex-wrap items-center gap-2.5">
+              <div className="mt-2.5 flex flex-wrap items-center gap-2">
                 <Link to={buildCurrentRequestLink()}>
-                  <Button size="sm">{homepageSettings.secondary_cta_text}</Button>
+                  <Button size="xs">{homepageSettings.secondary_cta_text}</Button>
                 </Link>
                 <Link to="/parts">
-                  <Button variant="secondary" size="sm">{homepageSettings.primary_cta_text}</Button>
+                  <Button variant="secondary" size="xs">{homepageSettings.primary_cta_text}</Button>
                 </Link>
-                <button type="button" onClick={() => setIsVehicleModalOpen(true)} className="text-[13px] font-semibold text-brand-700 hover:text-brand-800">
+                <button type="button" onClick={() => setIsVehicleModalOpen(true)} className="text-[12px] font-semibold text-brand-700 hover:text-brand-800 sm:text-[13px]">
                   Step-by-step vehicle picker
                 </button>
               </div>
@@ -206,15 +206,18 @@ export default function HomePage() {
       {homepageSettings.show_trust_strip ? (
         <section className="border-b border-stone-200 bg-white">
           <div className="container-shell py-3">
-            <div className="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+            <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
               {homepageSettings.trust_items.slice(0, 4).map((item, index) => {
                 const Icon = trustIcons[index % trustIcons.length];
                 return (
-                  <div key={item} className="flex items-center gap-2 rounded-xl border border-stone-200 bg-stone-50/70 px-3 py-2.5">
-                    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
+                  <div
+                    key={item}
+                    className="flex min-w-[15rem] items-center gap-2 rounded-xl border border-stone-200 bg-stone-50/70 px-3 py-2 sm:min-w-0"
+                  >
+                    <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
                       <Icon className="h-3.5 w-3.5" />
                     </span>
-                    <span className="text-[12px] font-semibold leading-5 text-ink-800 sm:text-sm">{item}</span>
+                    <span className="text-[12px] font-semibold leading-4 text-ink-800 sm:text-sm sm:leading-5">{item}</span>
                   </div>
                 );
               })}
