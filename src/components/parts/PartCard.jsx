@@ -9,12 +9,13 @@ import { buildWhatsAppLink, formatCurrency } from '@/lib/utils';
 export default function PartCard({ part }) {
   const { siteSettings } = useSiteContent();
   const message = `Hello Simon, I would like to inquire about ${part.name} for ${part.vehicle_make} ${part.vehicle_model}.`;
+  const hasImage = Boolean(part.image_url);
 
   return (
     <article className="card-surface flex h-full flex-col overflow-hidden rounded-[1.6rem]">
-      <div className="relative aspect-[4/3] overflow-hidden bg-stone-100">
-        <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" />
-        {part.image_url ? (
+      <div className={`relative overflow-hidden ${hasImage ? 'aspect-[4/3] bg-stone-100' : 'border-b border-stone-200 bg-stone-50 px-4 py-3'}`}>
+        {hasImage ? <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" /> : <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-400">No image uploaded</p>}
+        {hasImage ? (
           <div className="absolute bottom-3 right-3">
             <a href={part.image_url} target="_blank" rel="noreferrer">
               <Button variant="secondary" size="sm" className="bg-white/95">

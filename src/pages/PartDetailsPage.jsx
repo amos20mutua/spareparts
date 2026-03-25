@@ -68,7 +68,16 @@ export default function PartDetailsPage() {
       <div className="grid gap-6 lg:grid-cols-[0.95fr,1.05fr]">
         <div className="card-surface overflow-hidden rounded-[1.8rem]">
           <div className="relative">
-            <ImageWithFallback src={part.image_url} alt={part.name} loading="eager" className="h-full max-h-[420px] w-full object-cover" />
+            {part.image_url ? (
+              <ImageWithFallback src={part.image_url} alt={part.name} loading="eager" className="h-full max-h-[420px] w-full object-cover" />
+            ) : (
+              <div className="flex min-h-[320px] items-center justify-center bg-stone-50 px-6 text-center">
+                <div>
+                  <p className="text-sm font-bold text-ink-700">No image uploaded yet</p>
+                  <p className="mt-2 text-sm leading-6 text-ink-500">Add a product image from the admin dashboard to show it here.</p>
+                </div>
+              </div>
+            )}
             {part.image_url ? (
               <div className="absolute bottom-4 right-4">
                 <a href={part.image_url} target="_blank" rel="noreferrer">

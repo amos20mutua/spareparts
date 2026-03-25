@@ -8,9 +8,11 @@ export default function CategoryCard({ category }) {
       to={`/parts?category=${category.id}`}
       className="card-surface group block overflow-hidden rounded-[1.5rem] transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-xl"
     >
-      <div className="aspect-[16/10] overflow-hidden bg-stone-100">
-        <ImageWithFallback src={category.image_url} alt={category.name} loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
-      </div>
+      {category.image_url ? (
+        <div className="aspect-[16/10] overflow-hidden bg-stone-100">
+          <ImageWithFallback src={category.image_url} alt={category.name} loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
+        </div>
+      ) : null}
       <div className="p-4">
         <p className="text-xs font-bold uppercase tracking-[0.16em] text-brand-700">Category</p>
         <h3 className="mt-2 text-base font-bold text-ink-900">{category.name}</h3>

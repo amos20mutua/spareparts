@@ -288,8 +288,12 @@ export default function HomePage() {
 
                   return (
                     <article key={part.id} className="card-surface flex h-full flex-col overflow-hidden rounded-[1.6rem]">
-                      <div className="aspect-[4/3] overflow-hidden bg-stone-100">
-                        <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" />
+                      <div className={`overflow-hidden ${part.image_url ? 'aspect-[4/3] bg-stone-100' : 'border-b border-stone-200 bg-stone-50 px-4 py-3'}`}>
+                        {part.image_url ? (
+                          <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" />
+                        ) : (
+                          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-400">No image uploaded</p>
+                        )}
                       </div>
                       <div className="flex flex-1 flex-col p-4">
                         <div className="flex items-start justify-between gap-3">

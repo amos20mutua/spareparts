@@ -58,6 +58,15 @@ export default function AdminPartEditorPage({ mode }) {
   }, [id, mode]);
 
   const handleSubmit = async (values) => {
+    if (uploadingImage) {
+      showToast({
+        title: 'Image still uploading',
+        description: 'Wait for the upload to finish before saving the product.',
+        tone: 'error',
+      });
+      return;
+    }
+
     try {
       setSaving(true);
       const payload = {
@@ -73,7 +82,7 @@ export default function AdminPartEditorPage({ mode }) {
 
       showToast({
         title: mode === 'edit' ? 'Product updated' : 'Product created',
-        description: 'The catalog has been updated successfully.',
+        description: values.image_url ? 'The catalog has been updated successfully.' : 'The product was saved. Add an image if you want it to replace the placeholder on the public site.',
       });
       navigate('/admin/products');
     } catch (error) {

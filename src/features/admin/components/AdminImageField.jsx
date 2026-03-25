@@ -11,7 +11,13 @@ export default function AdminImageField({ label, value, onChange, onUpload, uplo
       <div className="grid gap-4 md:grid-cols-[180px,1fr]">
         <div className="overflow-hidden rounded-2xl border border-stone-200 bg-stone-100">
           <div className="aspect-[4/3]">
-            <ImageWithFallback src={value} alt={label} className="h-full w-full object-cover" />
+            {value ? (
+              <ImageWithFallback src={value} alt={label} className="h-full w-full object-cover" />
+            ) : (
+              <div className="flex h-full items-center justify-center px-4 text-center">
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-ink-400">No image selected</p>
+              </div>
+            )}
           </div>
         </div>
 

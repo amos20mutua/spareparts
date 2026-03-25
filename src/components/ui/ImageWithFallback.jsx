@@ -1,30 +1,23 @@
 import { useEffect, useState } from 'react';
 
-const fallbackImage =
-  '/part-placeholder.svg';
-
-export default function ImageWithFallback({
-  src,
-  alt,
-  className = '',
-  fallbackSrc = fallbackImage,
-  ...props
-}) {
-  const [currentSrc, setCurrentSrc] = useState(src || fallbackSrc);
+export default function ImageWithFallback({ src, alt, className = '', ...props }) {
+  const [currentSrc, setCurrentSrc] = useState(src || '');
 
   useEffect(() => {
-    setCurrentSrc(src || fallbackSrc);
-  }, [src, fallbackSrc]);
+    setCurrentSrc(src || '');
+  }, [src]);
+
+  if (!currentSrc) {
+    return null;
+  }
 
   return (
     <img
-      src={currentSrc || fallbackSrc}
+      src={currentSrc}
       alt={alt}
       className={className}
       onError={() => {
-        if (currentSrc !== fallbackSrc) {
-          setCurrentSrc(fallbackSrc);
-        }
+        setCurrentSrc('');
       }}
       {...props}
     />

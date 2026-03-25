@@ -15,6 +15,7 @@ function normalizePartPayload(values) {
     ...values,
     category_id: values.category_id ? values.category_id : null,
     is_active: values.is_active ?? true,
+    image_url: typeof values.image_url === 'string' ? values.image_url.trim() : '',
   };
 }
 

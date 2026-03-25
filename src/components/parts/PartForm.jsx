@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Button from '@/components/ui/Button';
+import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import { conditionOptions, stockOptions } from '@/lib/constants';
 
 export default function PartForm({ initialValues, categories, onSubmit, loading, onImageUpload, uploadingImage }) {
@@ -92,6 +93,28 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
         <label className="label-base">Image URL</label>
         <input className="input-base" name="image_url" value={values.image_url || ''} onChange={handleChange} />
       </div>
+      <div className="mt-5 overflow-hidden rounded-3xl border border-stone-200 bg-stone-50">
+        <div className="aspect-[16/10] bg-stone-100">
+          {values.image_url ? (
+            <ImageWithFallback src={values.image_url} alt={values.name || 'Product preview'} className="h-full w-full object-cover" />
+          ) : (
+            <div className="flex h-full items-center justify-center px-6 text-center">
+              <div>
+                <p className="text-sm font-bold text-ink-700">No image attached yet</p>
+                <p className="mt-2 text-sm leading-6 text-ink-500">Upload an image or paste an image URL to show the real product photo here.</p>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="border-t border-stone-200 px-4 py-3">
+          <p className="text-sm font-semibold text-ink-900">{values.image_url ? 'Current product image preview' : 'No image attached yet'}</p>
+          <p className="mt-1 text-xs leading-5 text-ink-500">
+            {values.image_url
+              ? 'This is the image that will appear on the public site after you save the product.'
+              : 'If you save without an image, the public site will keep showing the neutral placeholder.'}
+          </p>
+        </div>
+      </div>
       <div className="mt-5">
         <label className="label-base">Upload image</label>
         <input
@@ -127,8 +150,8 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
         <label className="label-base">Description</label>
         <textarea className="input-base min-h-36" name="description" value={values.description || ''} onChange={handleChange} />
       </div>
-      <Button type="submit" className="mt-6" disabled={loading}>
-        {loading ? 'Saving...' : 'Save part'}
+      <Button type="submit" className="mt-6" disabled={loading || uploadingImage}>
+        {uploadingImage ? 'Finish image upload...' : loading ? 'Saving...' : 'Save part'}
       </Button>
     </form>
   );
