@@ -186,7 +186,23 @@ export default function HomePage() {
                   Search
                 </Button>
               </div>
-              <VehicleSelector values={vehicle} onChange={handleVehicleChange} onSubmit={handleVehicleSubmit} submitLabel="Find parts" className="mt-2.5" />
+
+              <div className="mt-2.5 flex items-center justify-between rounded-xl border border-stone-200 bg-stone-50 px-3 py-2 sm:hidden">
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-500">Vehicle</p>
+                  <p className="truncate text-[13px] font-medium text-ink-700">
+                    {vehicle.make || vehicle.model || vehicle.year
+                      ? [vehicle.make, vehicle.model, vehicle.year].filter(Boolean).join(' · ')
+                      : 'Optional. Add make, model, or year.'}
+                  </p>
+                </div>
+                <button type="button" onClick={() => setIsVehicleModalOpen(true)} className="shrink-0 text-[12px] font-semibold text-brand-700 hover:text-brand-800">
+                  {vehicle.make || vehicle.model || vehicle.year ? 'Edit' : 'Add'}
+                </button>
+              </div>
+
+              <VehicleSelector values={vehicle} onChange={handleVehicleChange} onSubmit={handleVehicleSubmit} submitLabel="Find parts" className="mt-2.5 hidden sm:block" />
+
               <div className="mt-2.5 flex flex-wrap items-center gap-2">
                 <Link to={buildCurrentRequestLink()}>
                   <Button size="xs">{homepageSettings.secondary_cta_text}</Button>
@@ -195,7 +211,7 @@ export default function HomePage() {
                   <Button variant="secondary" size="xs">{homepageSettings.primary_cta_text}</Button>
                 </Link>
                 <button type="button" onClick={() => setIsVehicleModalOpen(true)} className="text-[12px] font-semibold text-brand-700 hover:text-brand-800 sm:text-[13px]">
-                  Step-by-step vehicle picker
+                  {vehicle.make || vehicle.model || vehicle.year ? 'Open vehicle picker' : 'Add vehicle'}
                 </button>
               </div>
             </div>
