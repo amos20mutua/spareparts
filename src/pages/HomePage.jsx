@@ -7,7 +7,6 @@ import { buildPartsQuery, buildRequestQuery, buildWhatsAppLink, formatCurrency }
 import { useSiteContent } from '@/hooks/useSiteContent';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
-import EmptyState from '@/components/ui/EmptyState';
 import ImageWithFallback from '@/components/ui/ImageWithFallback';
 import PageMeta from '@/components/ui/PageMeta';
 import SectionHeading from '@/components/ui/SectionHeading';
@@ -26,30 +25,24 @@ const trustIcons = [ShieldCheck, Wrench, MessageCircleMore, Truck];
 const whyChooseUs = [
   {
     title: 'Fitment guidance',
-    description: 'Share the vehicle or part number for a quicker match.',
   },
   {
     title: 'Fast stock checks',
-    description: 'Get price and availability without waiting around.',
   },
   {
     title: 'Easy follow-up',
-    description: 'WhatsApp, call, or request a part in minutes.',
   },
 ];
 
 const orderingSteps = [
   {
-    title: 'Search or send the vehicle',
-    description: 'Use the part name or add make, model, and year.',
+    title: 'Search or send your part',
   },
   {
-    title: 'Confirm fitment and price',
-    description: 'Simon confirms the match, stock, and price.',
+    title: 'We confirm fitment & price',
   },
   {
-    title: 'Pick up or arrange delivery',
-    description: 'Pick up or arrange delivery once it is confirmed.',
+    title: 'Pick up or delivery',
   },
 ];
 
@@ -161,15 +154,15 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(230,57,70,0.16),transparent_34%)]" />
         </div>
 
-        <div className="container-shell relative py-4 sm:py-8 lg:py-10">
+        <div className="container-shell relative py-3.5 sm:py-7 lg:py-9">
           <div className="max-w-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-200">Spare parts in Nairobi</p>
-            <h1 className="mt-1.5 max-w-xl text-[1.5rem] font-extrabold tracking-[-0.04em] text-white sm:text-[2.45rem] sm:leading-[0.98]">
+            <h1 className="mt-1.5 max-w-xl text-[1.45rem] font-extrabold tracking-[-0.04em] text-white sm:text-[2.35rem] sm:leading-[0.98]">
               {homepageSettings.hero_heading}
             </h1>
             <p className="mt-1 max-w-lg text-[12px] leading-5 text-ink-100 sm:text-[14px] sm:leading-6">{homepageSettings.hero_subheading}</p>
 
-            <div className="mt-2.5 max-w-2xl rounded-[1.05rem] border border-white/70 bg-white/95 p-2 shadow-[0_26px_70px_-36px_rgba(15,23,42,0.8)] backdrop-blur sm:rounded-[1.25rem] sm:p-3.5">
+            <div className="mt-2 max-w-2xl rounded-[1.05rem] border border-white/70 bg-white/95 p-2 shadow-[0_26px_70px_-36px_rgba(15,23,42,0.8)] backdrop-blur sm:rounded-[1.2rem] sm:p-3">
               <label className="label-base text-ink-800">Search by part or vehicle</label>
               <div className="flex flex-col gap-2 sm:flex-row">
                 <div className="relative flex-1">
@@ -187,7 +180,7 @@ export default function HomePage() {
                 </Button>
               </div>
 
-              <div className="mt-2 flex items-center justify-between rounded-xl border border-ink-200 bg-ink-50 px-3 py-2 sm:hidden">
+              <div className="mt-1.5 flex items-center justify-between rounded-xl border border-ink-200 bg-ink-50 px-3 py-2 sm:hidden">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-500">Vehicle</p>
                   <p className="truncate text-[12px] font-medium text-ink-700">
@@ -203,7 +196,7 @@ export default function HomePage() {
 
               <VehicleSelector values={vehicle} onChange={handleVehicleChange} onSubmit={handleVehicleSubmit} submitLabel="Find parts" className="mt-2 hidden sm:block" />
 
-              <div className="mt-2 flex flex-wrap items-center gap-1.5 sm:gap-2">
+              <div className="mt-1.5 flex flex-wrap items-center gap-1.5 sm:gap-2">
                 <Link to={buildCurrentRequestLink()}>
                   <Button size="xs">{homepageSettings.secondary_cta_text}</Button>
                 </Link>
@@ -221,7 +214,7 @@ export default function HomePage() {
 
       {homepageSettings.show_trust_strip ? (
         <section className="border-b border-ink-200 bg-white">
-          <div className="container-shell py-2.5">
+          <div className="container-shell py-2">
             <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
               {homepageSettings.trust_items.slice(0, 4).map((item, index) => {
                 const Icon = trustIcons[index % trustIcons.length];
@@ -261,7 +254,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="mt-3 grid grid-cols-2 gap-2.5 xl:grid-cols-4">
+            <div className="mt-2.5 grid grid-cols-2 gap-2.5 xl:grid-cols-4">
               {categoriesForHome.map((category) => (
                 <CategoryCard key={category.id} category={category} />
               ))}
@@ -286,7 +279,7 @@ export default function HomePage() {
             </div>
 
             {featuredParts.length ? (
-              <div className="mt-3 grid grid-cols-2 gap-2.5 xl:grid-cols-4">
+              <div className="mt-2.5 grid grid-cols-2 gap-2.5 xl:grid-cols-4">
                 {featuredParts.map((part) => {
                   const inquiryLink = buildWhatsAppLink(
                     `Hello Simon, I would like to inquire about ${part.name} for ${part.vehicle_make} ${part.vehicle_model}.`,
@@ -333,19 +326,7 @@ export default function HomePage() {
                   );
                 })}
               </div>
-            ) : (
-              <div className="mt-3">
-                <EmptyState
-                  title="No featured parts yet"
-                  description="Add products in admin and mark a few as featured to fill this section."
-                  action={
-                    <Link to={buildCurrentRequestLink()}>
-                      <Button>Request a part</Button>
-                    </Link>
-                  }
-                />
-              </div>
-            )}
+            ) : null}
           </div>
         </section>
       ) : null}
@@ -356,13 +337,11 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="Why customers choose us"
               title="Built for quick checks"
-              description="Practical help, fast replies, and easier follow-up."
             />
             <div className="mt-3 grid gap-2.5">
               {whyChooseUs.map((item) => (
-                <div key={item.title} className="rounded-[1rem] border border-ink-200 bg-ink-50 px-3.5 py-3 sm:rounded-[1.2rem]">
+                <div key={item.title} className="rounded-[1rem] border border-ink-200 bg-ink-50 px-3.5 py-2.5 sm:rounded-[1.2rem]">
                   <h3 className="text-[14px] font-bold text-ink-900 sm:text-[15px]">{item.title}</h3>
-                  <p className="mt-1 text-[12px] leading-5 text-ink-600 sm:text-[13px] sm:leading-5">{item.description}</p>
                 </div>
               ))}
             </div>
@@ -372,34 +351,20 @@ export default function HomePage() {
             <SectionHeading
               eyebrow="How ordering works"
               title="A simple flow"
-              description="Search, confirm, then pick up or arrange delivery."
             />
             <div className="mt-3 grid gap-2.5">
               {orderingSteps.map((step, index) => (
-                <div key={step.title} className="card-surface rounded-[1rem] p-3.5 sm:rounded-[1.2rem]">
+                <div key={step.title} className="card-surface rounded-[1rem] p-3 sm:rounded-[1.2rem]">
                   <div className="flex items-start gap-3">
                     <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-50 text-[11px] font-extrabold text-brand-700">
                       0{index + 1}
                     </span>
                     <div>
                       <h3 className="text-[14px] font-bold text-ink-900 sm:text-[15px]">{step.title}</h3>
-                      <p className="mt-1 text-[12px] leading-5 text-ink-600 sm:text-[13px] sm:leading-5">{step.description}</p>
                     </div>
                   </div>
                 </div>
               ))}
-            </div>
-
-            <div className="mt-3 rounded-[1rem] border border-brand-100 bg-brand-50/60 px-3.5 py-3 sm:rounded-[1.2rem]">
-              <div className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 text-brand-600" />
-                <div>
-                  <p className="text-[13px] font-bold text-ink-900 sm:text-sm">Useful for garages and daily drivers</p>
-                  <p className="mt-1 text-[12px] leading-5 text-ink-600 sm:text-[13px] sm:leading-5">
-                    Best for faster stock checks, part confirmation, and sourcing.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -408,7 +373,7 @@ export default function HomePage() {
       {homepageSettings.show_bottom_cta ? (
         <section className="section-shell bg-white">
           <div className="container-shell">
-            <div className="grid gap-2.5 rounded-[1.2rem] border border-ink-200 bg-[linear-gradient(135deg,#0B0B0D_0%,#1F1F24_100%)] px-4 py-3.5 text-white shadow-[0_24px_60px_-38px_rgba(11,11,13,0.78)] sm:px-5 sm:py-4 lg:grid-cols-[1fr,auto] lg:items-center">
+            <div className="grid gap-2.5 rounded-[1.2rem] border border-ink-200 bg-[linear-gradient(135deg,#0B0B0D_0%,#1F1F24_100%)] px-4 py-3 text-white shadow-[0_24px_60px_-38px_rgba(11,11,13,0.78)] sm:px-5 sm:py-3.5 lg:grid-cols-[1fr,auto] lg:items-center">
               <div className="max-w-xl">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-brand-200">Need help fast?</p>
                 <h2 className="mt-1 text-[1.2rem] font-extrabold tracking-[-0.03em] sm:text-[1.45rem]">{homepageSettings.bottom_cta_heading}</h2>

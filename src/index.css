@@ -51,6 +51,6 @@
   }
 
   .section-shell {
-    @apply py-6 sm:py-8 lg:py-10;
+    @apply py-5 sm:py-6 lg:py-8;
   }
 }
