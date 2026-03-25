@@ -54,29 +54,29 @@ export default function RequestPartPage() {
   };
 
   return (
-    <div className="container-shell py-12 sm:py-16">
+    <div className="container-shell py-6 sm:py-8 lg:py-10">
       <PageMeta
         title="Request a part"
         description="Send the vehicle details and the part you need so Simon can check stock, pricing, and sourcing."
       />
 
-      <div className="grid gap-8 lg:grid-cols-[0.95fr,1.05fr]">
+      <div className="grid gap-5 lg:grid-cols-[0.92fr,1.08fr]">
         <div>
           <SectionHeading
             eyebrow="Request a part"
-            title="Send the vehicle details and the part you need"
-            description="Best for price checks, fitment help, or parts that are not yet listed in the catalog."
+            title="Send the vehicle and the part needed"
+            description="Best for price checks, fitment help, or items not yet listed."
           />
-          <div className="mt-8 card-surface rounded-[2rem] bg-ink-900 p-6 text-white">
-            <h3 className="text-xl font-extrabold">Prefer WhatsApp?</h3>
-            <p className="mt-3 text-sm leading-7 text-ink-200">Send the make, model, year, and part name. Add a photo if that helps confirm the item faster.</p>
+          <div className="mt-5 card-surface rounded-[1.35rem] bg-ink-900 p-4 text-white sm:p-5">
+            <h3 className="text-lg font-extrabold">Prefer WhatsApp?</h3>
+            <p className="mt-2 text-[13px] leading-6 text-ink-200 sm:text-sm sm:leading-7">Send the make, model, year, and part name. Add a photo if that helps confirm the item faster.</p>
             <a
               href={buildWhatsAppLink('Hello Simon, I need help sourcing a spare part for my vehicle.', siteSettings.whatsapp_number)}
               target="_blank"
               rel="noreferrer"
-              className="mt-5 inline-flex"
+              className="mt-4 inline-flex"
             >
-              <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-semibold text-white">
+              <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white">
                 <MessageCircleMore className="h-4 w-4" />
                 Chat on WhatsApp
               </span>

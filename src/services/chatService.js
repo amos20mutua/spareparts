@@ -7,7 +7,10 @@ export function getCustomerSessionId() {
   if (typeof window === 'undefined') return null;
   let sessionId = window.localStorage.getItem(CHAT_SESSION_KEY);
   if (!sessionId) {
-    sessionId = crypto.randomUUID();
+    sessionId =
+      typeof window.crypto?.randomUUID === 'function'
+        ? window.crypto.randomUUID()
+        : `chat-${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
     window.localStorage.setItem(CHAT_SESSION_KEY, sessionId);
   }
   return sessionId;
@@ -59,14 +62,12 @@ export async function createConversation(values) {
 
 export async function updateConversation(conversationId, values) {
   const client = requireSupabase();
-  const { data, error } = await client
+  const { error } = await client
     .from('chat_conversations')
     .update({ ...values, updated_at: new Date().toISOString() })
-    .eq('id', conversationId)
-    .select()
-    .single();
+    .eq('id', conversationId);
   if (error) throw error;
-  return data;
+  return { id: conversationId, ...values };
 }
 
 export async function getConversationMessages(conversationId) {

@@ -65,21 +65,21 @@ export default function RequestPartForm({ onSubmit, loading, initialValues = {} 
   };
 
   return (
-    <form onSubmit={submit} className="card-surface rounded-3xl p-5 sm:p-6">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form onSubmit={submit} className="card-surface rounded-[1.35rem] p-4 sm:rounded-[1.7rem] sm:p-5">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
           <label className="label-base" htmlFor="full_name">
             Full name
           </label>
           <input id="full_name" className="input-base" name="full_name" value={values.full_name} onChange={handleChange} aria-invalid={Boolean(errors.full_name)} />
-          {errors.full_name ? <p className="mt-1 text-sm text-rose-600">{errors.full_name}</p> : null}
+          {errors.full_name ? <p className="mt-1 text-xs text-rose-600">{errors.full_name}</p> : null}
         </div>
         <div>
           <label className="label-base" htmlFor="phone">
             Phone number
           </label>
           <input id="phone" className="input-base" name="phone" value={values.phone} onChange={handleChange} aria-invalid={Boolean(errors.phone)} />
-          {errors.phone ? <p className="mt-1 text-sm text-rose-600">{errors.phone}</p> : null}
+          {errors.phone ? <p className="mt-1 text-xs text-rose-600">{errors.phone}</p> : null}
         </div>
         <div>
           <label className="label-base" htmlFor="email">
@@ -108,7 +108,7 @@ export default function RequestPartForm({ onSubmit, loading, initialValues = {} 
               ))}
             </select>
           )}
-          {errors.vehicle_make ? <p className="mt-1 text-sm text-rose-600">{errors.vehicle_make}</p> : null}
+          {errors.vehicle_make ? <p className="mt-1 text-xs text-rose-600">{errors.vehicle_make}</p> : null}
         </div>
         <div>
           <label className="label-base" htmlFor="vehicle_model">
@@ -133,7 +133,7 @@ export default function RequestPartForm({ onSubmit, loading, initialValues = {} 
               ))}
             </select>
           )}
-          {errors.vehicle_model ? <p className="mt-1 text-sm text-rose-600">{errors.vehicle_model}</p> : null}
+          {errors.vehicle_model ? <p className="mt-1 text-xs text-rose-600">{errors.vehicle_model}</p> : null}
         </div>
         <div>
           <label className="label-base" htmlFor="vehicle_year">
@@ -153,28 +153,28 @@ export default function RequestPartForm({ onSubmit, loading, initialValues = {} 
           )}
         </div>
       </div>
-      <p className="mt-3 text-xs text-ink-500">Can&apos;t find the exact car? Switch to manual entry and type the make, model, and year directly.</p>
-      <div className="mt-5">
+      <p className="mt-3 text-[11px] text-ink-500">Can&apos;t find the exact car? Switch to manual entry and type the details directly.</p>
+      <div className="mt-4">
         <label className="label-base" htmlFor="part_needed">
           Part needed
         </label>
         <input id="part_needed" className="input-base" name="part_needed" value={values.part_needed} onChange={handleChange} placeholder="Brake pads, projector lamp, ECU, oil filter..." />
-        {errors.part_needed ? <p className="mt-1 text-sm text-rose-600">{errors.part_needed}</p> : null}
+        {errors.part_needed ? <p className="mt-1 text-xs text-rose-600">{errors.part_needed}</p> : null}
       </div>
-      <div className="mt-5">
+      <div className="mt-4">
         <label className="label-base" htmlFor="notes">
           Description / notes
         </label>
         <textarea
           id="notes"
-          className="input-base min-h-32"
+          className="input-base min-h-28"
           name="notes"
           value={values.notes}
           onChange={handleChange}
           placeholder="Share trim, side, engine size, or any detail that helps confirm the right part."
         />
       </div>
-      <Button type="submit" className="mt-6" disabled={loading}>
+      <Button type="submit" size="sm" className="mt-5" disabled={loading}>
         {loading ? 'Sending...' : 'Submit request'}
       </Button>
     </form>

@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { MessageCircleMore, Minus, X } from 'lucide-react';
+import Button from '@/components/ui/Button';
 import { useToast } from '@/hooks/useToast';
 import {
   createConversation,
@@ -29,6 +30,7 @@ export default function ChatWidget({ open, onClose }) {
   const [minimized, setMinimized] = useState(false);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
+  const [chatError, setChatError] = useState('');
   const [conversation, setConversation] = useState(null);
   const [messages, setMessages] = useState([]);
   const [identity, setIdentity] = useState({
@@ -52,6 +54,7 @@ export default function ChatWidget({ open, onClose }) {
     const init = async () => {
       try {
         setLoading(true);
+        setChatError('');
         const storedProfile = getStoredChatProfile();
         if (!cancelled) {
           setIdentity((current) => ({
@@ -62,13 +65,23 @@ export default function ChatWidget({ open, onClose }) {
           }));
         }
         const existingConversation = await getConversationBySession(sessionId);
-        if (!existingConversation || cancelled) return;
+        if (cancelled) return;
+        if (!existingConversation) {
+          setConversation(null);
+          setMessages([]);
+          return;
+        }
         const conversationMessages = await getConversationMessages(existingConversation.id);
         if (cancelled) return;
         setConversation(existingConversation);
         setMessages(conversationMessages);
         await markMessagesAsRead(existingConversation.id, 'customer');
       } catch (error) {
+        if (!cancelled) {
+          setConversation(null);
+          setMessages([]);
+          setChatError(getChatErrorMessage(error));
+        }
         showToast({ title: 'Chat unavailable', description: getChatErrorMessage(error), tone: 'error' });
       } finally {
         if (!cancelled) setLoading(false);
@@ -85,13 +98,23 @@ export default function ChatWidget({ open, onClose }) {
   useEffect(() => {
     if (!conversation?.id) return undefined;
     return subscribeToConversationMessages(conversation.id, async () => {
-      const updatedMessages = await getConversationMessages(conversation.id);
-      setMessages(updatedMessages);
-      if (open) {
-        await markMessagesAsRead(conversation.id, 'customer');
+      try {
+        const updatedMessages = await getConversationMessages(conversation.id);
+        setMessages(updatedMessages);
+        if (open) {
+          await markMessagesAsRead(conversation.id, 'customer');
+        }
+      } catch (error) {
+        setChatError(getChatErrorMessage(error));
       }
     });
   }, [conversation?.id, open]);
+
+  useEffect(() => {
+    if (open) {
+      setMinimized(false);
+    }
+  }, [open]);
 
   useEffect(() => {
     if (open && conversation?.id) {
@@ -112,6 +135,7 @@ export default function ChatWidget({ open, onClose }) {
 
     try {
       setSending(true);
+      setChatError('');
       const createdConversation = await createConversation({
         customer_name: identity.customer_name,
         customer_phone: identity.customer_phone,
@@ -136,6 +160,7 @@ export default function ChatWidget({ open, onClose }) {
       setMessages(conversationMessages);
       setIdentity((current) => ({ ...current, first_message: '' }));
     } catch (error) {
+      setChatError(getChatErrorMessage(error));
       showToast({ title: 'Could not start chat', description: getChatErrorMessage(error), tone: 'error' });
     } finally {
       setSending(false);
@@ -146,17 +171,28 @@ export default function ChatWidget({ open, onClose }) {
     if (!conversation?.id) return;
     try {
       setSending(true);
-      await updateConversation(conversation.id, {
+      setChatError('');
+      const nextProfile = {
         customer_name: identity.customer_name || conversation.customer_name,
         customer_phone: identity.customer_phone || conversation.customer_phone,
         customer_email: identity.customer_email || conversation.customer_email,
-      });
+      };
+      const detailsChanged =
+        nextProfile.customer_name !== conversation.customer_name ||
+        nextProfile.customer_phone !== conversation.customer_phone ||
+        nextProfile.customer_email !== conversation.customer_email;
+
+      if (detailsChanged) {
+        await updateConversation(conversation.id, nextProfile);
+        setConversation((current) => (current ? { ...current, ...nextProfile } : current));
+      }
       await sendChatMessage({
         conversationId: conversation.id,
         senderType: 'customer',
         message,
       });
     } catch (error) {
+      setChatError(getChatErrorMessage(error));
       showToast({ title: 'Message failed', description: getChatErrorMessage(error), tone: 'error' });
     } finally {
       setSending(false);
@@ -166,7 +202,7 @@ export default function ChatWidget({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-24 right-4 z-[70] w-[min(100vw-2rem,24rem)] overflow-hidden rounded-[1.8rem] border border-stone-300 bg-stone-50 shadow-[0_24px_50px_-24px_rgba(15,23,42,0.35)]">
+    <div className="fixed bottom-[5.15rem] right-3 z-[70] w-[min(100vw-1.5rem,24rem)] overflow-hidden rounded-[1.5rem] border border-stone-300 bg-stone-50 shadow-[0_24px_50px_-24px_rgba(15,23,42,0.35)] md:bottom-24 md:right-4 md:w-[min(100vw-2rem,24rem)] md:rounded-[1.8rem]">
       <div className="flex items-center justify-between bg-ink-900 px-4 py-3 text-white">
         <div className="flex items-center gap-2.5">
           <span className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-brand-700">
@@ -193,6 +229,9 @@ export default function ChatWidget({ open, onClose }) {
             <div className="flex flex-1 items-center justify-center text-sm text-ink-500">Loading chat...</div>
           ) : conversation ? (
             <>
+              {chatError ? (
+                <div className="border-b border-rose-200 bg-rose-50 px-4 py-2 text-xs font-medium text-rose-700">{chatError}</div>
+              ) : null}
               <ChatMessageList messages={messages} />
               <ChatComposer onSend={handleSend} disabled={sending} />
             </>
@@ -202,6 +241,7 @@ export default function ChatWidget({ open, onClose }) {
                 <h3 className="text-lg font-bold text-ink-900">Start a conversation</h3>
                 <p className="mt-1 text-sm leading-6 text-ink-600">Share your details and the first message so Simon can reply in real time.</p>
               </div>
+              {chatError ? <div className="rounded-2xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm text-rose-700">{chatError}</div> : null}
               <input
                 className="input-base"
                 placeholder="Full name"

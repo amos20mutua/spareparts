@@ -16,7 +16,7 @@ export async function getPartRequests() {
 
 export async function updatePartRequestStatus(id, status) {
   const supabase = requireSupabase();
-  const { data, error } = await supabase.from('part_requests').update({ status }).eq('id', id).select().single();
+  const { error } = await supabase.from('part_requests').update({ status }).eq('id', id);
   if (error) throw error;
-  return data;
+  return { id, status };
 }

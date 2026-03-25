@@ -13,8 +13,8 @@ import { getParts } from '@/services/partsService';
 import { buildRequestQuery, matchesKeywordSearch, scoreKeywordMatch, shuffleBySeed } from '@/lib/utils';
 
 const popularMakes = ['Toyota', 'Nissan', 'Mazda', 'Subaru', 'Honda'];
-const INITIAL_VISIBLE = 9;
-const LOAD_MORE_COUNT = 6;
+const INITIAL_VISIBLE = 8;
+const LOAD_MORE_COUNT = 4;
 
 function createMixSeed() {
   const now = new Date();
@@ -72,46 +72,28 @@ export default function PartsCatalogPage() {
   const hasMore = visibleCount < filteredParts.length;
 
   return (
-    <div className="container-shell py-10 sm:py-12">
-      <PageMeta
-        title="Browse parts"
-        description="Search spare parts by keyword, category, stock status, or vehicle details."
-      />
+    <div className="container-shell py-6 sm:py-8 lg:py-10">
+      <PageMeta title="Browse parts" description="Search spare parts by keyword, category, stock status, or vehicle details." />
 
-      <div className="grid gap-6 lg:grid-cols-[0.9fr,1.1fr] lg:items-end">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <SectionHeading
           eyebrow="Parts catalog"
-          title="Search by part, make, or stock status"
-          description="Use direct keywords, vehicle details, or filters to narrow the right match faster."
+          title="Search parts faster"
+          description="Use a keyword, make, or stock filter to get to the right item quickly."
         />
-        <div className="card-surface rounded-[1.7rem] p-4 sm:p-5">
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-sm font-bold text-ink-900">Popular makes</p>
-            <button type="button" className="inline-flex items-center gap-2 text-xs font-semibold text-brand-700 hover:text-brand-800" onClick={() => setMixSeed(createMixSeed())}>
-              <RefreshCw className="h-3.5 w-3.5" />
-              Refresh mix
-            </button>
-          </div>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {popularMakes.map((make) => (
-              <button
-                key={make}
-                type="button"
-                className={`rounded-full border px-3 py-2 text-sm font-semibold transition ${
-                  vehicleMake === make
-                    ? 'border-brand-200 bg-brand-50 text-brand-700'
-                    : 'border-stone-300 bg-white text-ink-700 hover:border-brand-200 hover:text-brand-700'
-                }`}
-                onClick={() => setVehicleMake(make)}
-              >
-                {make}
-              </button>
-            ))}
-          </div>
-        </div>
+        <Link
+          to={buildRequestQuery({
+            make: vehicleMake,
+            model: vehicleModel,
+            year: vehicleYear,
+            part: search,
+          })}
+        >
+          <Button size="sm">Request a part</Button>
+        </Link>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         <SearchFilterBar
           search={search}
           setSearch={setSearch}
@@ -134,22 +116,39 @@ export default function PartsCatalogPage() {
         />
       </div>
 
+      <div className="mt-3 flex flex-wrap gap-2">
+        {popularMakes.map((make) => (
+          <button
+            key={make}
+            type="button"
+            className={`rounded-full border px-3 py-1.5 text-[12px] font-semibold transition ${
+              vehicleMake === make
+                ? 'border-brand-200 bg-brand-50 text-brand-700'
+                : 'border-stone-300 bg-white text-ink-700 hover:border-brand-200 hover:text-brand-700'
+            }`}
+            onClick={() => setVehicleMake(make)}
+          >
+            {make}
+          </button>
+        ))}
+      </div>
+
       {(vehicleMake || vehicleModel || vehicleYear) && (
-        <div className="mt-4 flex flex-wrap gap-2">
-          {vehicleMake ? <span className="rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-700">{vehicleMake}</span> : null}
-          {vehicleModel ? <span className="rounded-full bg-stone-200 px-3 py-1 text-sm font-semibold text-ink-700">{vehicleModel}</span> : null}
-          {vehicleYear ? <span className="rounded-full bg-stone-200 px-3 py-1 text-sm font-semibold text-ink-700">{vehicleYear}</span> : null}
+        <div className="mt-3 flex flex-wrap gap-2">
+          {vehicleMake ? <span className="rounded-full bg-brand-50 px-3 py-1 text-[12px] font-semibold text-brand-700">{vehicleMake}</span> : null}
+          {vehicleModel ? <span className="rounded-full bg-stone-200 px-3 py-1 text-[12px] font-semibold text-ink-700">{vehicleModel}</span> : null}
+          {vehicleYear ? <span className="rounded-full bg-stone-200 px-3 py-1 text-[12px] font-semibold text-ink-700">{vehicleYear}</span> : null}
         </div>
       )}
 
-      <div className="mt-5 flex flex-col gap-3 rounded-[1.4rem] bg-stone-100 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-4 flex flex-col gap-2.5 rounded-[1.15rem] bg-stone-100 px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm font-semibold text-ink-700">
           {filteredParts.length} {filteredParts.length === 1 ? 'part' : 'parts'} found
         </p>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
+            className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-2 text-[13px] font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
             onClick={() => setMixSeed(createMixSeed())}
           >
             <RefreshCw className="h-4 w-4" />
@@ -168,19 +167,19 @@ export default function PartsCatalogPage() {
         </div>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-4">
         {parts === null ? (
           <LoadingState label="Loading catalog..." />
         ) : filteredParts.length ? (
           <>
-            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
               {visibleParts.map((part) => (
                 <PartCard key={`${mixSeed}-${part.id}`} part={part} />
               ))}
             </div>
             {hasMore ? (
-              <div className="mt-6 flex justify-center">
-                <Button variant="secondary" onClick={() => setVisibleCount((current) => current + LOAD_MORE_COUNT)}>
+              <div className="mt-5 flex justify-center">
+                <Button variant="secondary" size="sm" onClick={() => setVisibleCount((current) => current + LOAD_MORE_COUNT)}>
                   View more parts
                 </Button>
               </div>

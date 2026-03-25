@@ -16,7 +16,7 @@ export default function CategoriesPage() {
   }, []);
 
   return (
-    <div className="container-shell py-12 sm:py-16">
+    <div className="container-shell py-6 sm:py-8 lg:py-10">
       <PageMeta
         title="Part categories"
         description="Browse spare part categories to move quickly from a general need to the right listing."
@@ -29,17 +29,17 @@ export default function CategoriesPage() {
       />
 
       {categories === null ? (
-        <div className="mt-10">
+        <div className="mt-6">
           <LoadingState label="Loading categories..." />
         </div>
       ) : categories.length ? (
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        <div className="mt-5 grid grid-cols-2 gap-3 xl:grid-cols-4">
           {categories.map((category) => (
             <CategoryCard key={category.id} category={category} />
           ))}
         </div>
       ) : (
-        <div className="mt-10">
+        <div className="mt-6">
           <EmptyState
             title="No categories yet"
             description="Categories will appear here once they are added from the admin dashboard."
