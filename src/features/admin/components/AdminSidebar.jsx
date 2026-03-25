@@ -27,7 +27,7 @@ export default function AdminSidebar() {
 
   return (
     <aside className="card-surface h-fit w-full rounded-3xl p-4 lg:sticky lg:top-24 lg:w-72">
-      <Link to="/" className="block rounded-2xl bg-brand-600 px-4 py-4 text-white">
+      <Link to="/" className="block rounded-2xl bg-ink-900 px-4 py-4 text-white">
         <p className="text-sm font-semibold text-brand-100">Signed in as</p>
         <p className="mt-1 truncate text-lg font-extrabold">{user?.email || 'Admin user'}</p>
       </Link>
@@ -40,7 +40,7 @@ export default function AdminSidebar() {
               to={link.href}
               className={({ isActive }) =>
                 `flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-semibold transition ${
-                  isActive ? 'bg-ink-900 text-white' : 'text-ink-700 hover:bg-ink-100'
+                  isActive ? 'bg-brand-500 text-white' : 'text-ink-700 hover:bg-ink-100'
                 }`
               }
             >

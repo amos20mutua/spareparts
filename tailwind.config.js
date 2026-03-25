@@ -5,40 +5,40 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#eff8ff',
-          100: '#d7ebff',
-          200: '#b6dbff',
-          300: '#84c3ff',
-          400: '#4ea4ff',
-          500: '#1e80f0',
-          600: '#1062ca',
-          700: '#104da4',
-          800: '#133f82',
-          900: '#16366b'
+          50: '#fdf1f2',
+          100: '#f9d8dc',
+          200: '#f4b3bb',
+          300: '#ee8e99',
+          400: '#e96572',
+          500: '#E63946',
+          600: '#c92d39',
+          700: '#a8232d',
+          800: '#7e1b22',
+          900: '#5a1419'
         },
         ink: {
-          50: '#f7f8fb',
-          100: '#eff1f5',
-          200: '#dbe0e8',
-          300: '#b4bfce',
-          400: '#8697ad',
-          500: '#64758b',
-          600: '#4d5c70',
-          700: '#3f4b5d',
-          800: '#313a49',
-          900: '#1e252f'
+          50: '#F5F5F5',
+          100: '#ECEDEF',
+          200: '#DDE1E7',
+          300: '#C4CAD5',
+          400: '#8D99AE',
+          500: '#6E7788',
+          600: '#4D525E',
+          700: '#34363E',
+          800: '#1F1F24',
+          900: '#0B0B0D'
         },
-        accent: '#f97316'
+        accent: '#1F1F24'
       },
       boxShadow: {
-        card: '0 10px 35px -18px rgba(15, 23, 42, 0.18)'
+        card: '0 14px 40px -24px rgba(11, 11, 13, 0.22)'
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
       },
       backgroundImage: {
         'hero-grid':
-          'radial-gradient(circle at top right, rgba(30, 128, 240, 0.18), transparent 30%), linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(239, 248, 255, 0.95))'
+          'radial-gradient(circle at top right, rgba(230, 57, 70, 0.14), transparent 30%), linear-gradient(135deg, rgba(245, 245, 245, 0.96), rgba(236, 237, 239, 0.96))'
       }
     }
   },

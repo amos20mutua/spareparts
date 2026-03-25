@@ -76,7 +76,7 @@ export default function RequestPartPage() {
               rel="noreferrer"
               className="mt-4 inline-flex"
             >
-              <span className="inline-flex items-center gap-2 rounded-xl bg-accent px-4 py-2.5 text-sm font-semibold text-white">
+              <span className="inline-flex items-center gap-2 rounded-xl bg-brand-500 px-4 py-2.5 text-sm font-semibold text-white">
                 <MessageCircleMore className="h-4 w-4" />
                 Chat on WhatsApp
               </span>

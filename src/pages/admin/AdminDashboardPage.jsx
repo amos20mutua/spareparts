@@ -18,8 +18,8 @@ export default function AdminDashboardPage() {
 
   const cards = [
     { label: 'Products', value: snapshot.parts.length, accent: 'bg-brand-50 text-brand-700' },
-    { label: 'Part requests', value: snapshot.requests.length, accent: 'bg-orange-50 text-orange-700' },
-    { label: 'Messages', value: snapshot.messages.length, accent: 'bg-emerald-50 text-emerald-700' },
+    { label: 'Part requests', value: snapshot.requests.length, accent: 'bg-ink-100 text-ink-800' },
+    { label: 'Messages', value: snapshot.messages.length, accent: 'bg-ink-200 text-ink-900' },
     { label: 'Categories', value: snapshot.categories.length, accent: 'bg-ink-100 text-ink-700' },
   ];
 

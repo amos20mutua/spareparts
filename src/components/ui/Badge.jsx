@@ -1,9 +1,9 @@
 import { cn } from '@/lib/utils';
 
 const palette = {
-  'In Stock': 'bg-emerald-100 text-emerald-800 ring-emerald-200',
-  'Low Stock': 'bg-amber-100 text-amber-800 ring-amber-200',
-  'Out of Stock': 'bg-rose-100 text-rose-800 ring-rose-200',
+  'In Stock': 'bg-ink-100 text-ink-800 ring-ink-200',
+  'Low Stock': 'bg-ink-200 text-ink-800 ring-ink-300',
+  'Out of Stock': 'bg-brand-100 text-brand-700 ring-brand-200',
   default: 'bg-ink-100 text-ink-700 ring-ink-200',
 };
 

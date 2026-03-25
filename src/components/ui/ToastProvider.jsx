@@ -30,10 +30,10 @@ export function ToastProvider({ children }) {
             <div
               key={toast.id}
               className={`pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-2xl border px-4 py-3 shadow-card ${
-                isError ? 'border-rose-100 bg-rose-50' : 'border-emerald-100 bg-white'
+                isError ? 'border-brand-100 bg-brand-50' : 'border-ink-200 bg-white'
               }`}
             >
-              {isError ? <CircleAlert className="mt-0.5 h-5 w-5 text-rose-600" /> : <CheckCircle2 className="mt-0.5 h-5 w-5 text-emerald-600" />}
+              {isError ? <CircleAlert className="mt-0.5 h-5 w-5 text-brand-600" /> : <CheckCircle2 className="mt-0.5 h-5 w-5 text-ink-700" />}
               <div className="flex-1">
                 <p className="text-sm font-bold text-ink-900">{toast.title}</p>
                 {toast.description ? <p className="mt-1 text-sm text-ink-600">{toast.description}</p> : null}

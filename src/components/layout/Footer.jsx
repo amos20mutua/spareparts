@@ -6,7 +6,7 @@ export default function Footer() {
   const { siteSettings, footerSettings } = useSiteContent();
 
   return (
-    <footer className="border-t border-stone-200 bg-white">
+    <footer className="border-t border-ink-200 bg-white">
       <div className="container-shell py-3 sm:py-5">
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-[1fr,0.75fr,0.9fr]">
           <div>

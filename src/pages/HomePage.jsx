@@ -149,7 +149,7 @@ export default function HomePage() {
         description="Search parts, check stock, and send vehicle details quickly with Simon Spare Parts in Nairobi."
       />
 
-      <section className="relative border-b border-stone-200 bg-ink-900">
+      <section className="relative border-b border-ink-200 bg-ink-900">
         <div className="absolute inset-0">
           <ImageWithFallback
             src={homepageSettings.hero_background_image}
@@ -157,8 +157,8 @@ export default function HomePage() {
             className="h-full w-full object-cover"
             fetchPriority="high"
           />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,42,0.46)_0%,rgba(15,23,42,0.72)_52%,rgba(15,23,42,0.82)_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(16,77,164,0.24),transparent_34%)]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,11,13,0.38)_0%,rgba(11,11,13,0.68)_48%,rgba(11,11,13,0.84)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(230,57,70,0.16),transparent_34%)]" />
         </div>
 
         <div className="container-shell relative py-5 sm:py-10 lg:py-12">
@@ -167,7 +167,7 @@ export default function HomePage() {
             <h1 className="mt-2 max-w-xl text-[1.65rem] font-extrabold tracking-[-0.04em] text-white sm:text-[2.7rem] sm:leading-[0.98]">
               {homepageSettings.hero_heading}
             </h1>
-            <p className="mt-1.5 max-w-lg text-[13px] leading-5 text-stone-100 sm:text-[15px] sm:leading-6">{homepageSettings.hero_subheading}</p>
+            <p className="mt-1.5 max-w-lg text-[13px] leading-5 text-ink-100 sm:text-[15px] sm:leading-6">{homepageSettings.hero_subheading}</p>
 
             <div className="mt-3 max-w-2xl rounded-[1.15rem] border border-white/70 bg-white/95 p-2.5 shadow-[0_26px_70px_-36px_rgba(15,23,42,0.8)] backdrop-blur sm:rounded-[1.4rem] sm:p-4">
               <label className="label-base text-ink-800">Search by part or vehicle</label>
@@ -175,7 +175,7 @@ export default function HomePage() {
                 <div className="relative flex-1">
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
                   <input
-                    className="input-base h-10 border-stone-300 bg-stone-50 pl-10 sm:h-11"
+                    className="input-base h-10 border-ink-200 bg-ink-50 pl-10 sm:h-11"
                     value={searchText}
                     onChange={(event) => setSearchText(event.target.value)}
                     placeholder={`e.g. ${heroHint}`}
@@ -187,7 +187,7 @@ export default function HomePage() {
                 </Button>
               </div>
 
-              <div className="mt-2.5 flex items-center justify-between rounded-xl border border-stone-200 bg-stone-50 px-3 py-2 sm:hidden">
+              <div className="mt-2.5 flex items-center justify-between rounded-xl border border-ink-200 bg-ink-50 px-3 py-2 sm:hidden">
                 <div className="min-w-0">
                   <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-ink-500">Vehicle</p>
                   <p className="truncate text-[13px] font-medium text-ink-700">
@@ -220,7 +220,7 @@ export default function HomePage() {
       </section>
 
       {homepageSettings.show_trust_strip ? (
-        <section className="border-b border-stone-200 bg-white">
+        <section className="border-b border-ink-200 bg-white">
           <div className="container-shell py-3">
             <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-4">
               {homepageSettings.trust_items.slice(0, 4).map((item, index) => {
@@ -228,7 +228,7 @@ export default function HomePage() {
                 return (
                   <div
                     key={item}
-                    className="flex min-w-[15rem] items-center gap-2 rounded-xl border border-stone-200 bg-stone-50/70 px-3 py-2 sm:min-w-0"
+                    className="flex min-w-[15rem] items-center gap-2 rounded-xl border border-ink-200 bg-ink-50 px-3 py-2 sm:min-w-0"
                   >
                     <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white text-brand-700 shadow-sm">
                       <Icon className="h-3.5 w-3.5" />
@@ -271,7 +271,7 @@ export default function HomePage() {
       ) : null}
 
       {homepageSettings.show_featured_products ? (
-        <section className="section-shell bg-stone-50">
+        <section className="section-shell bg-ink-50">
           <div className="container-shell">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <SectionHeading
@@ -296,7 +296,7 @@ export default function HomePage() {
 
                   return (
                     <article key={part.id} className="card-surface flex h-full flex-col overflow-hidden rounded-[1.15rem] sm:rounded-[1.4rem]">
-                      <div className={`overflow-hidden ${part.image_url ? 'aspect-[4/3] bg-stone-100' : 'border-b border-stone-200 bg-stone-50 px-3 py-2.5'}`}>
+                      <div className={`overflow-hidden ${part.image_url ? 'aspect-[4/3] bg-ink-100' : 'border-b border-ink-200 bg-ink-50 px-3 py-2.5'}`}>
                         {part.image_url ? (
                           <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" />
                         ) : (
@@ -360,7 +360,7 @@ export default function HomePage() {
             />
             <div className="mt-4 grid gap-3">
               {whyChooseUs.map((item) => (
-                <div key={item.title} className="rounded-[1.1rem] border border-stone-200 bg-stone-50/70 p-4 sm:rounded-[1.35rem]">
+                <div key={item.title} className="rounded-[1.1rem] border border-ink-200 bg-ink-50 p-4 sm:rounded-[1.35rem]">
                   <h3 className="text-[15px] font-bold text-ink-900 sm:text-base">{item.title}</h3>
                   <p className="mt-1.5 text-[13px] leading-5 text-ink-600 sm:text-sm sm:leading-6">{item.description}</p>
                 </div>
@@ -390,9 +390,9 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="mt-4 rounded-[1.1rem] border border-emerald-200 bg-emerald-50 px-4 py-3.5 sm:rounded-[1.35rem]">
+            <div className="mt-4 rounded-[1.1rem] border border-brand-100 bg-brand-50/60 px-4 py-3.5 sm:rounded-[1.35rem]">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 text-emerald-600" />
+                <CheckCircle2 className="mt-0.5 h-4.5 w-4.5 text-brand-600" />
                 <div>
                   <p className="text-sm font-bold text-ink-900">Useful for garages and daily drivers</p>
                   <p className="mt-1 text-[13px] leading-5 text-ink-600 sm:text-sm sm:leading-6">
@@ -408,7 +408,7 @@ export default function HomePage() {
       {homepageSettings.show_bottom_cta ? (
         <section className="section-shell bg-white">
           <div className="container-shell">
-            <div className="grid gap-3 rounded-[1.4rem] border border-stone-200 bg-[linear-gradient(135deg,#111827_0%,#1f2937_100%)] px-4 py-4 text-white shadow-[0_24px_60px_-38px_rgba(15,23,42,0.8)] sm:px-5 sm:py-5 lg:grid-cols-[1fr,auto] lg:items-center">
+            <div className="grid gap-3 rounded-[1.4rem] border border-ink-200 bg-[linear-gradient(135deg,#0B0B0D_0%,#1F1F24_100%)] px-4 py-4 text-white shadow-[0_24px_60px_-38px_rgba(11,11,13,0.78)] sm:px-5 sm:py-5 lg:grid-cols-[1fr,auto] lg:items-center">
               <div className="max-w-xl">
                 <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-brand-200">Need help fast?</p>
                 <h2 className="mt-1.5 text-[1.45rem] font-extrabold tracking-[-0.03em] sm:text-[1.7rem]">{homepageSettings.bottom_cta_heading}</h2>

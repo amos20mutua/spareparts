@@ -18,7 +18,7 @@ export default function VehicleSelectorModal({ open, values, onChange, onClose, 
           <button
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-stone-300 bg-white text-ink-700"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-ink-200 bg-white text-ink-700"
             aria-label="Close vehicle selector"
           >
             <X className="h-4 w-4" />

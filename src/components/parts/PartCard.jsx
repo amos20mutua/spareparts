@@ -14,7 +14,7 @@ export default function PartCard({ part }) {
 
   return (
     <article className="card-surface flex h-full flex-col overflow-hidden rounded-[1.15rem] sm:rounded-[1.4rem]">
-      <div className={`relative overflow-hidden ${hasImage ? 'aspect-[4/3] bg-stone-100' : 'border-b border-stone-200 bg-stone-50 px-3 py-2.5'}`}>
+      <div className={`relative overflow-hidden ${hasImage ? 'aspect-[4/3] bg-ink-100' : 'border-b border-ink-200 bg-ink-50 px-3 py-2.5'}`}>
         {hasImage ? (
           <ImageWithFallback src={part.image_url} alt={part.name} loading="lazy" className="h-full w-full object-cover" />
         ) : (

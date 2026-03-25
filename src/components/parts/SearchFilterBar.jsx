@@ -74,7 +74,7 @@ export default function SearchFilterBar({
           <button
             key={keyword}
             type="button"
-            className="rounded-full border border-stone-300 bg-white px-2.5 py-1 text-[11px] font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700 sm:px-3 sm:py-1.5 sm:text-xs"
+            className="rounded-full border border-ink-200 bg-white px-2.5 py-1 text-[11px] font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700 sm:px-3 sm:py-1.5 sm:text-xs"
             onClick={() => setSearch(keyword)}
           >
             {keyword}

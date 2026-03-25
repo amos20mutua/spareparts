@@ -217,7 +217,7 @@ export default function ChatWidget({ open, onClose }) {
   if (!open) return null;
 
   return (
-    <div className="fixed inset-x-2 bottom-[4.85rem] z-[70] overflow-hidden rounded-[1.25rem] border border-stone-300 bg-stone-50 shadow-[0_24px_50px_-24px_rgba(15,23,42,0.35)] md:inset-x-auto md:bottom-24 md:right-4 md:w-[min(100vw-2rem,24rem)] md:rounded-[1.8rem]">
+    <div className="fixed inset-x-2 bottom-[4.85rem] z-[70] overflow-hidden rounded-[1.25rem] border border-ink-200 bg-ink-50 shadow-[0_24px_50px_-24px_rgba(11,11,13,0.28)] md:inset-x-auto md:bottom-24 md:right-4 md:w-[min(100vw-2rem,24rem)] md:rounded-[1.8rem]">
       <div className="flex items-center justify-between bg-ink-900 px-3.5 py-2.5 text-white md:px-4 md:py-3">
         <div className="flex items-center gap-2.5">
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-brand-700 md:h-9 md:w-9">
@@ -287,7 +287,7 @@ export default function ChatWidget({ open, onClose }) {
             </form>
           )}
           {unreadCount > 0 && conversation ? (
-            <div className="border-t border-stone-200 bg-brand-50 px-4 py-2 text-center text-xs font-semibold text-brand-700">
+            <div className="border-t border-ink-200 bg-brand-50 px-4 py-2 text-center text-xs font-semibold text-brand-700">
               {unreadCount} new {unreadCount === 1 ? 'reply' : 'replies'}
             </div>
           ) : null}

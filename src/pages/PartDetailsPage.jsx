@@ -71,7 +71,7 @@ export default function PartDetailsPage() {
             {part.image_url ? (
               <ImageWithFallback src={part.image_url} alt={part.name} loading="eager" className="h-full max-h-[420px] w-full object-cover" />
             ) : (
-              <div className="flex min-h-[320px] items-center justify-center bg-stone-50 px-6 text-center">
+              <div className="flex min-h-[320px] items-center justify-center bg-ink-50 px-6 text-center">
                 <div>
                   <p className="text-sm font-bold text-ink-700">No image uploaded yet</p>
                   <p className="mt-2 text-sm leading-6 text-ink-500">Add a product image from the admin dashboard to show it here.</p>
@@ -94,10 +94,10 @@ export default function PartDetailsPage() {
           <h1 className="mt-2 text-[2rem] font-extrabold tracking-tight text-ink-900 sm:text-[2.3rem]">{part.name}</h1>
           <div className="mt-4 flex flex-wrap items-center gap-3">
             <Badge>{part.stock_status}</Badge>
-            <span className="rounded-full bg-stone-100 px-3 py-1 text-xs font-semibold text-ink-700">{part.condition}</span>
+            <span className="rounded-full bg-ink-100 px-3 py-1 text-xs font-semibold text-ink-700">{part.condition}</span>
           </div>
           <p className="mt-5 text-[15px] leading-7 text-ink-700">{part.description || 'Use WhatsApp to confirm pricing, fitment, and stock for this part.'}</p>
-          <div className="mt-5 grid gap-3 rounded-[1.5rem] bg-stone-100 p-4 sm:grid-cols-3">
+          <div className="mt-5 grid gap-3 rounded-[1.5rem] bg-ink-100 p-4 sm:grid-cols-3">
             <div>
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-ink-500">Compatibility</p>
               <p className="mt-2 text-sm font-semibold text-ink-900">

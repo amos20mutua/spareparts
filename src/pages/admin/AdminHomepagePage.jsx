@@ -123,7 +123,7 @@ export default function AdminHomepagePage() {
             </label>
             <div className="grid gap-3 md:grid-cols-2">
               {products.map((product) => (
-                <label key={product.id} className="flex items-start gap-3 rounded-2xl border border-stone-200 bg-white px-4 py-3">
+                <label key={product.id} className="flex items-start gap-3 rounded-2xl border border-ink-200 bg-white px-4 py-3">
                   <input type="checkbox" checked={form.featured_product_ids.includes(product.id)} onChange={() => toggleProduct(product.id)} />
                   <span className="min-w-0">
                     <span className="block truncate text-sm font-semibold text-ink-900">{product.name}</span>

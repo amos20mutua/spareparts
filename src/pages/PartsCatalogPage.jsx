@@ -124,7 +124,7 @@ export default function PartsCatalogPage() {
             className={`rounded-full border px-3 py-1.5 text-[12px] font-semibold transition ${
               vehicleMake === make
                 ? 'border-brand-200 bg-brand-50 text-brand-700'
-                : 'border-stone-300 bg-white text-ink-700 hover:border-brand-200 hover:text-brand-700'
+                : 'border-ink-200 bg-white text-ink-700 hover:border-brand-200 hover:text-brand-700'
             }`}
             onClick={() => setVehicleMake(make)}
           >
@@ -136,19 +136,19 @@ export default function PartsCatalogPage() {
       {(vehicleMake || vehicleModel || vehicleYear) && (
         <div className="mt-3 flex flex-wrap gap-2">
           {vehicleMake ? <span className="rounded-full bg-brand-50 px-3 py-1 text-[12px] font-semibold text-brand-700">{vehicleMake}</span> : null}
-          {vehicleModel ? <span className="rounded-full bg-stone-200 px-3 py-1 text-[12px] font-semibold text-ink-700">{vehicleModel}</span> : null}
-          {vehicleYear ? <span className="rounded-full bg-stone-200 px-3 py-1 text-[12px] font-semibold text-ink-700">{vehicleYear}</span> : null}
+          {vehicleModel ? <span className="rounded-full bg-ink-200 px-3 py-1 text-[12px] font-semibold text-ink-700">{vehicleModel}</span> : null}
+          {vehicleYear ? <span className="rounded-full bg-ink-200 px-3 py-1 text-[12px] font-semibold text-ink-700">{vehicleYear}</span> : null}
         </div>
       )}
 
-      <div className="mt-4 flex flex-col gap-2.5 rounded-[1.15rem] bg-stone-100 px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-4 flex flex-col gap-2.5 rounded-[1.15rem] bg-ink-100 px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm font-semibold text-ink-700">
           {filteredParts.length} {filteredParts.length === 1 ? 'part' : 'parts'} found
         </p>
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
-            className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-2 text-[13px] font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
+            className="inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-white px-3 py-2 text-[13px] font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
             onClick={() => setMixSeed(createMixSeed())}
           >
             <RefreshCw className="h-4 w-4" />

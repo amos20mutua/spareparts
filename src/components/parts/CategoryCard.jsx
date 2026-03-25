@@ -9,7 +9,7 @@ export default function CategoryCard({ category }) {
       className="card-surface group block overflow-hidden rounded-[1.1rem] transition duration-200 hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-xl sm:rounded-[1.4rem]"
     >
       {category.image_url ? (
-        <div className="aspect-[16/10] overflow-hidden bg-stone-100">
+        <div className="aspect-[16/10] overflow-hidden bg-ink-100">
           <ImageWithFallback src={category.image_url} alt={category.name} loading="lazy" className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]" />
         </div>
       ) : null}

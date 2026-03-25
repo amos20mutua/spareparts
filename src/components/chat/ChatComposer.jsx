@@ -13,7 +13,7 @@ export default function ChatComposer({ onSend, disabled, placeholder = 'Write a 
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-stone-200 bg-white p-2.5 sm:p-3">
+    <form onSubmit={handleSubmit} className="border-t border-ink-200 bg-white p-2.5 sm:p-3">
       <div className="flex gap-2">
         <textarea
           className="input-base min-h-[42px] resize-none py-2"

@@ -29,8 +29,8 @@ export default function ChatMessageList({ messages, ownerView = false }) {
         const bubbleClass = isOwner
           ? 'bg-brand-700 text-white'
           : ownerView
-            ? 'bg-stone-100 text-ink-900'
-            : 'bg-white text-ink-900 border border-stone-200';
+            ? 'bg-ink-100 text-ink-900'
+            : 'border border-ink-200 bg-white text-ink-900';
 
         return (
           <div key={message.id} className={`flex flex-col ${alignClass}`}>

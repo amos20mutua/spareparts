@@ -84,8 +84,8 @@ export default function AdminMediaPage() {
         ) : items.length ? (
           <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {items.map((item) => (
-              <div key={item.id} className="rounded-2xl border border-stone-200 bg-white p-3">
-                <div className="overflow-hidden rounded-2xl bg-stone-100">
+              <div key={item.id} className="rounded-2xl border border-ink-200 bg-white p-3">
+                <div className="overflow-hidden rounded-2xl bg-ink-100">
                   <div className="aspect-[4/3]">
                     <ImageWithFallback src={item.url} alt={item.name} className="h-full w-full object-cover" />
                   </div>

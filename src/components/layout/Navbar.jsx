@@ -19,7 +19,7 @@ export default function Navbar() {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200/80 bg-stone-50/92 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-ink-200/80 bg-ink-50/92 backdrop-blur-xl">
       <div className="container-shell flex h-12 items-center justify-between gap-3 sm:h-14">
         <Link to="/" className="flex min-w-0 items-center gap-2">
           {brandImage ? (
@@ -41,11 +41,11 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <Link to="/parts" aria-label="Search parts" className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-stone-100 text-ink-700 transition hover:bg-stone-200">
+          <Link to="/parts" aria-label="Search parts" className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-ink-100 text-ink-700 transition hover:bg-ink-200">
             <Search className="h-4 w-4" />
           </Link>
           <a href={getPhoneHref(siteSettings.contact_phone)}>
-            <span className="inline-flex items-center gap-2 rounded-xl border border-stone-300 bg-white px-3 py-1.5 text-sm font-semibold text-ink-800 transition hover:border-brand-200 hover:text-brand-700">
+            <span className="inline-flex items-center gap-2 rounded-xl border border-ink-200 bg-white px-3 py-1.5 text-sm font-semibold text-ink-800 transition hover:border-brand-200 hover:text-brand-700">
               <Phone className="h-4 w-4" />
               Call Simon
             </span>
@@ -57,7 +57,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-7.5 w-7.5 items-center justify-center rounded-lg border border-stone-300 bg-white lg:hidden"
+          className="inline-flex h-7.5 w-7.5 items-center justify-center rounded-lg border border-ink-200 bg-white lg:hidden"
           onClick={() => setOpen((value) => !value)}
           aria-label="Toggle navigation"
         >
@@ -66,7 +66,7 @@ export default function Navbar() {
       </div>
 
       {open ? (
-        <div className="border-t border-stone-200 bg-white lg:hidden">
+        <div className="border-t border-ink-200 bg-white lg:hidden">
           <div className="container-shell flex flex-col gap-0.5 py-2">
             {navigationLinks.map((link) => (
               <NavLink
@@ -78,7 +78,7 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
-            <div className="mt-1.5 grid grid-cols-3 gap-1.5 border-t border-stone-200 pt-2">
+            <div className="mt-1.5 grid grid-cols-3 gap-1.5 border-t border-ink-200 pt-2">
               <Link to="/parts" onClick={() => setOpen(false)}>
                 <Button variant="ghost" size="xs" className="w-full">
                   Search

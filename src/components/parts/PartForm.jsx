@@ -116,8 +116,8 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
         <p className="mt-2 text-xs text-ink-500">You do not need to fill this if you are selecting an image from your device below.</p>
       </div>
 
-      <div className="mt-5 overflow-hidden rounded-3xl border border-stone-200 bg-stone-50">
-        <div className="aspect-[16/10] bg-stone-100">
+      <div className="mt-5 overflow-hidden rounded-3xl border border-ink-200 bg-ink-50">
+        <div className="aspect-[16/10] bg-ink-100">
           {activeImage ? (
             <ImageWithFallback src={activeImage} alt={values.name || 'Product preview'} className="h-full w-full object-cover" />
           ) : (
@@ -129,7 +129,7 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
             </div>
           )}
         </div>
-        <div className="border-t border-stone-200 px-4 py-3">
+        <div className="border-t border-ink-200 px-4 py-3">
           <p className="text-sm font-semibold text-ink-900">
             {selectedFile ? `Selected file: ${selectedFile.name}` : activeImage ? 'Current product image preview' : 'No image attached yet'}
           </p>
@@ -160,7 +160,7 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
         {selectedFile ? (
           <button
             type="button"
-            className="mt-3 inline-flex rounded-xl border border-stone-300 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-rose-200 hover:text-rose-700"
+            className="mt-3 inline-flex rounded-xl border border-ink-200 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
             onClick={() => setSelectedFile(null)}
           >
             Remove selected file
@@ -169,7 +169,7 @@ export default function PartForm({ initialValues, categories, onSubmit, loading,
         {values.image_url || selectedFile ? (
           <button
             type="button"
-            className="mt-3 ml-2 inline-flex rounded-xl border border-stone-300 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-rose-200 hover:text-rose-700"
+            className="mt-3 ml-2 inline-flex rounded-xl border border-ink-200 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
             onClick={() => {
               setSelectedFile(null);
               setValues((current) => ({ ...current, image_url: '' }));

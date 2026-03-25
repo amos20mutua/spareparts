@@ -90,12 +90,12 @@ export default function AdminPartsPage() {
                     </td>
                     <td className="px-4 py-4">
                       {part.is_active === false ? (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-stone-200 px-3 py-1 text-xs font-semibold text-ink-700">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-ink-200 px-3 py-1 text-xs font-semibold text-ink-700">
                           <EyeOff className="h-3.5 w-3.5" />
                           Hidden
                         </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700">
                           <ToggleRight className="h-3.5 w-3.5" />
                           Active
                         </span>

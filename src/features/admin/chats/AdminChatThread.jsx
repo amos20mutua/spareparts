@@ -22,7 +22,7 @@ export default function AdminChatThread({
 
   return (
     <div className="card-surface flex h-[70vh] flex-col overflow-hidden rounded-3xl">
-      <div className="border-b border-stone-200 px-4 py-4">
+      <div className="border-b border-ink-200 px-4 py-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-extrabold text-ink-900">{conversation.customer_name}</h2>

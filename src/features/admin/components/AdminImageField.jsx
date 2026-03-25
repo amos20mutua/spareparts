@@ -9,7 +9,7 @@ export default function AdminImageField({ label, value, onChange, onUpload, uplo
       </div>
 
       <div className="grid gap-4 md:grid-cols-[180px,1fr]">
-        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-stone-100">
+        <div className="overflow-hidden rounded-2xl border border-ink-200 bg-ink-100">
           <div className="aspect-[4/3]">
             {value ? (
               <ImageWithFallback src={value} alt={label} className="h-full w-full object-cover" />
@@ -38,7 +38,7 @@ export default function AdminImageField({ label, value, onChange, onUpload, uplo
           {value ? (
             <button
               type="button"
-              className="mt-3 inline-flex rounded-xl border border-stone-300 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-rose-200 hover:text-rose-700"
+              className="mt-3 inline-flex rounded-xl border border-ink-200 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:border-brand-200 hover:text-brand-700"
               onClick={() => onChange('')}
             >
               Remove image

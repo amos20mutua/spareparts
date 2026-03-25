@@ -2,10 +2,10 @@ import { forwardRef } from 'react';
 import { cn } from '@/lib/utils';
 
 const variants = {
-  primary: 'bg-brand-700 text-white shadow-[0_18px_40px_-26px_rgba(16,77,164,0.85)] hover:bg-brand-800 focus:ring-brand-200',
-  secondary: 'bg-white text-ink-900 ring-1 ring-inset ring-stone-300 hover:bg-stone-50 hover:ring-stone-400 focus:ring-stone-200',
-  ghost: 'bg-transparent text-ink-700 hover:bg-stone-100 focus:ring-stone-200',
-  accent: 'bg-accent text-white shadow-[0_18px_40px_-26px_rgba(234,125,35,0.85)] hover:bg-orange-600 focus:ring-orange-200',
+  primary: 'bg-brand-500 text-white shadow-[0_18px_40px_-26px_rgba(230,57,70,0.7)] hover:bg-brand-600 focus:ring-brand-200',
+  secondary: 'bg-white text-ink-900 ring-1 ring-inset ring-ink-200 hover:bg-ink-50 hover:ring-ink-300 focus:ring-ink-200',
+  ghost: 'bg-transparent text-ink-700 hover:bg-ink-100 focus:ring-ink-200',
+  accent: 'bg-ink-800 text-white shadow-[0_18px_40px_-26px_rgba(11,11,13,0.55)] hover:bg-ink-900 focus:ring-ink-200',
 };
 
 const sizes = {
