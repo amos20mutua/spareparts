@@ -21,7 +21,7 @@ export default function AppLayout() {
   return (
     <div className="min-h-screen bg-ink-50">
       <Navbar />
-      <main className="pb-20 md:pb-0">
+      <main className="pb-24 md:pb-0">
         <Outlet />
       </main>
       <Footer />

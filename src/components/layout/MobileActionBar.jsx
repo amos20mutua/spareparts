@@ -13,7 +13,7 @@ export default function MobileActionBar() {
           href={buildWhatsAppLink('Hello Simon, I need help finding a spare part.', siteSettings.whatsapp_number)}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex h-10 items-center justify-center gap-1 rounded-xl bg-brand-700 px-2 text-[11px] font-semibold text-white"
+          className="inline-flex h-10 items-center justify-center gap-1 rounded-xl bg-brand-500 px-2 text-[11px] font-semibold text-white shadow-[0_14px_28px_-18px_rgba(230,57,70,0.7)]"
         >
           <MessageCircleMore className="h-3.5 w-3.5" />
           WhatsApp
@@ -27,7 +27,7 @@ export default function MobileActionBar() {
         </a>
         <Link
           to="/request-part"
-          className="inline-flex h-10 items-center justify-center gap-1 rounded-xl border border-brand-200 bg-brand-50 px-2 text-[11px] font-semibold text-brand-700"
+          className="inline-flex h-10 items-center justify-center gap-1 rounded-xl border border-ink-200 bg-ink-50 px-2 text-[11px] font-semibold text-ink-800"
         >
           <Search className="h-3.5 w-3.5" />
           Request

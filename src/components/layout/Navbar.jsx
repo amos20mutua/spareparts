@@ -78,21 +78,6 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
-            <div className="mt-1.5 grid grid-cols-3 gap-1.5 border-t border-ink-200 pt-2">
-              <Link to="/parts" onClick={() => setOpen(false)}>
-                <Button variant="ghost" size="xs" className="w-full">
-                  Search
-                </Button>
-              </Link>
-              <a href={getPhoneHref(siteSettings.contact_phone)}>
-                <Button variant="secondary" size="xs" className="w-full">
-                  Call
-                </Button>
-              </a>
-              <Link to="/request-part" onClick={() => setOpen(false)}>
-                <Button size="xs" className="w-full">Request</Button>
-              </Link>
-            </div>
           </div>
         </div>
       ) : null}
