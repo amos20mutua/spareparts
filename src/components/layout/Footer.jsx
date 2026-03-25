@@ -9,36 +9,36 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-stone-200 bg-white">
-      <div className="container-shell py-6 sm:py-8">
-        <div className="flex flex-col gap-3 rounded-[1.35rem] border border-stone-200 bg-stone-50 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="max-w-xl">
-            <p className="text-sm font-extrabold text-ink-900">{siteSettings.business_name}</p>
-            <p className="mt-1 text-[13px] leading-5 text-ink-600 sm:text-sm sm:leading-6">{footerSettings.description}</p>
+      <div className="container-shell py-4 sm:py-6">
+        <div className="flex flex-col gap-2 rounded-[1rem] border border-stone-200 bg-stone-50 px-3.5 py-3 sm:flex-row sm:items-center sm:justify-between sm:rounded-[1.2rem] sm:px-4 sm:py-3.5">
+          <div className="max-w-lg">
+            <p className="text-[13px] font-extrabold text-ink-900">{siteSettings.business_name}</p>
+            <p className="mt-0.5 text-[12px] leading-5 text-ink-600 sm:text-[13px]">{footerSettings.description}</p>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row">
+          <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-row">
             <a href={getPhoneHref(siteSettings.contact_phone)}>
-              <Button variant="secondary" size="sm" className="w-full sm:w-auto">
-                Call now
+              <Button variant="secondary" size="xs" className="w-full sm:w-auto">
+                Call
               </Button>
             </a>
             <a href={buildWhatsAppLink('Hello Simon, I need help finding a spare part.', siteSettings.whatsapp_number)} target="_blank" rel="noreferrer">
-              <Button size="sm" className="w-full sm:w-auto">
-                Chat on WhatsApp
+              <Button size="xs" className="w-full sm:w-auto">
+                WhatsApp
               </Button>
             </a>
           </div>
         </div>
 
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.2fr,0.75fr,0.9fr]">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-[1fr,0.75fr,0.9fr]">
           <div>
-            <p className="font-extrabold text-ink-900">{siteSettings.business_name}</p>
-            <p className="mt-1 text-[13px] text-ink-500">{siteSettings.tagline}</p>
+            <p className="text-sm font-extrabold text-ink-900">{siteSettings.business_name}</p>
+            <p className="mt-1 text-[12px] leading-5 text-ink-500">{footerSettings.address}</p>
           </div>
 
           {footerSettings.show_quick_links ? (
             <div>
-              <h3 className="text-sm font-extrabold uppercase tracking-[0.18em] text-ink-500">Quick links</h3>
-              <div className="mt-3 flex flex-col gap-2 text-sm">
+              <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-ink-500">Quick links</h3>
+              <div className="mt-2.5 flex flex-col gap-1.5 text-[13px]">
                 {navigationLinks.map((link) => (
                   <Link key={link.href} to={link.href} className="text-ink-700 hover:text-brand-700">
                     {link.label}
@@ -53,13 +53,12 @@ export default function Footer() {
             <div />
           )}
 
-          <div>
-            <h3 className="text-sm font-extrabold uppercase tracking-[0.18em] text-ink-500">Contact</h3>
-            <div className="mt-3 space-y-2 text-sm text-ink-700">
-              <p>{footerSettings.address}</p>
+          <div className="sm:col-span-2 lg:col-span-1">
+            <h3 className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-ink-500">Contact</h3>
+            <div className="mt-2.5 space-y-1.5 text-[13px] text-ink-700">
               <p>{footerSettings.phone}</p>
               <p>{footerSettings.email}</p>
-              <div className="pt-1">
+              <div className="pt-0.5 text-[12px] leading-5 text-ink-500">
                 {footerSettings.business_hours.map((entry) => (
                   <p key={entry}>{entry}</p>
                 ))}
