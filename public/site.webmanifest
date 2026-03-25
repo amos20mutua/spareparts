@@ -2,8 +2,8 @@
   "name": "Simon Spare Parts",
   "short_name": "Spare Parts",
   "description": "Vehicle spare parts with fitment help, stock checks, and fast WhatsApp replies.",
-  "theme_color": "#104da4",
-  "background_color": "#104da4",
+  "theme_color": "#0B0B0D",
+  "background_color": "#0B0B0D",
   "display": "standalone",
   "start_url": "/",
   "icons": [
