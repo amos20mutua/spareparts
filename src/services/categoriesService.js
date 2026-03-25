@@ -5,9 +5,14 @@ import { slugify } from '@/lib/utils';
 export async function getCategories() {
   try {
     const supabase = requireSupabase();
-    const { data, error } = await supabase.from('categories').select('*').order('homepage_order', { ascending: true }).order('name');
+    const { data, error } = await supabase.from('categories').select('*');
     if (error) throw error;
-    return data;
+    return [...data].sort((first, second) => {
+      const firstOrder = Number.isFinite(Number(first.homepage_order)) ? Number(first.homepage_order) : 9999;
+      const secondOrder = Number.isFinite(Number(second.homepage_order)) ? Number(second.homepage_order) : 9999;
+      if (firstOrder !== secondOrder) return firstOrder - secondOrder;
+      return String(first.name || '').localeCompare(String(second.name || ''));
+    });
   } catch {
     return sampleCategories;
   }
