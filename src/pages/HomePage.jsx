@@ -235,34 +235,6 @@ export default function HomePage() {
         </section>
       ) : null}
 
-      {categoriesForHome.length ? (
-        <section className="section-shell bg-white">
-          <div className="container-shell">
-            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-end sm:justify-between">
-              <SectionHeading
-                eyebrow="What Simon supplies"
-                title="Quick categories"
-                description="Use a category or jump into the catalog."
-              />
-              <div className="flex flex-wrap gap-2 sm:justify-end">
-                <a href={buildWhatsAppLink('Hello Simon, I need help finding the right vehicle part.', siteSettings.whatsapp_number)} target="_blank" rel="noreferrer">
-                  <Button variant="secondary" size="xs">WhatsApp</Button>
-                </a>
-                <Link to="/parts">
-                  <Button size="xs">Browse parts</Button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="mt-2.5 grid grid-cols-2 gap-2.5 xl:grid-cols-4">
-              {categoriesForHome.map((category) => (
-                <CategoryCard key={category.id} category={category} />
-              ))}
-            </div>
-          </div>
-        </section>
-      ) : null}
-
       {homepageSettings.show_featured_products ? (
         <section className="section-shell bg-ink-50">
           <div className="container-shell">
@@ -327,6 +299,24 @@ export default function HomePage() {
                 })}
               </div>
             ) : null}
+          </div>
+        </section>
+      ) : null}
+
+      {categoriesForHome.length ? (
+        <section className="section-shell bg-white">
+          <div className="container-shell">
+            <SectionHeading
+              eyebrow="Browse by type"
+              title="Quick categories"
+              description="A quick fallback if you prefer browsing."
+            />
+
+            <div className="mt-2.5 grid grid-cols-2 gap-2 xl:grid-cols-4">
+              {categoriesForHome.map((category) => (
+                <CategoryCard key={category.id} category={category} />
+              ))}
+            </div>
           </div>
         </section>
       ) : null}
